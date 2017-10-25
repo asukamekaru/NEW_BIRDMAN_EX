@@ -3,16 +3,12 @@
 
 #include"Scene.h"
 
-class SceneTitle : public Scene
+class SCENE_TITLE : public Scene
 {
 
 private:
 
 	enum{
-		_IMG_TITLE_BG,
-		_IMG_TITLE_PtS,
-		_IMG_TITLE_LOGO,
-		_IMG_TITLE_SCROLL,
 		_IMG_TITLE_LSHUTTER,
 		_IMG_TITLE_RSHUTTER,
 		_IMG_MAX

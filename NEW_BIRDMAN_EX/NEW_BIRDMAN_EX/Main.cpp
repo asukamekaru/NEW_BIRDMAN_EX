@@ -148,7 +148,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance,LPSTR ipCmdLine,
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetBackgroundColor(0,0,40);
 
-	vChangeScene(new SceneTitle());
+	vChangeScene(new SCENE_TITLE());
 
 	while(ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
