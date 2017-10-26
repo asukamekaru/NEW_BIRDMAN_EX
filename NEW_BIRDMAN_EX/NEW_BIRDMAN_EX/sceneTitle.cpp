@@ -2,6 +2,8 @@
 #include "Base.h"
 #include "SceneTitle.h"
 #include "SceneMain.h"
+#include "titleLogo.h"
+#include "titleCharSelect.h"
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										定数									   //
@@ -30,6 +32,9 @@ bool SCENE_TITLE :: initialize()
 		iSe = new int *[_SE_MAX];
 	}
 
+	//TitleLogo.initialize();
+	TitleSelect.initialize();
+
 	return true;
 }
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
@@ -47,12 +52,18 @@ void SCENE_TITLE::Release()
 		if(iSe[i])delete iSe[i];
 		iSe[i] = NULL;
 	}
+
+	//TitleLogo.Release();
+	TitleSelect.Release();
 }
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										更新									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 bool SCENE_TITLE::Update()
 {
+	//TitleLogo.Update();
+	TitleSelect.Update();
+
 	//↓↓↓↓↓↓//シャッター//↓↓↓↓↓↓//
 	
 	if(ShutterFlg == TRUE){//シャッター開く
@@ -75,6 +86,9 @@ bool SCENE_TITLE::Update()
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 void SCENE_TITLE::Render()
 {
+	//TitleLogo.Render();
+	TitleSelect.Render();
+
 	//↓↓↓↓↓↓//画像//↓↓↓↓↓↓//
 
 	//シャッター

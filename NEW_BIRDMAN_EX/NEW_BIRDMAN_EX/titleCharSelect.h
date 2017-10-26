@@ -3,23 +3,16 @@
 
 #include"Scene.h"
 
-class TITLE_CHARACTER : public Scene
+class TITLE_SELECT : public Scene
 {
 
 private:
 
 	enum{
-		_IMG_TITLE_BG,
-		_IMG_TITLE_PtS,
-		_IMG_TITLE_LOGO,
-		_IMG_TITLE_SCROLL,
-		_IMG_TITLE_LSHUTTER,
-		_IMG_TITLE_RSHUTTER,
 		_IMG_MAX
 	};
 
 	enum{
-		_BGM_TITLE,
 		_SE_MAX
 	};
 
@@ -34,5 +27,8 @@ public:
 	bool Update();
 	void Render();
 };
+
+extern TITLE_SELECT TitleSelect;
+
 
 #endif //!_TITLE_CHARACTER_H_

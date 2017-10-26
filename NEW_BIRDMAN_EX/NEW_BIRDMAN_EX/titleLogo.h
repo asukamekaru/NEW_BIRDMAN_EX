@@ -17,7 +17,6 @@ private:
 	};
 
 	enum{
-		_BGM_TITLE,
 		_SE_MAX
 	};
 
@@ -28,5 +27,7 @@ public:
 	bool Update();
 	void Render();
 };
+
+extern TITLE_LOGO TitleLogo;
 
 #endif //!_TITLE_LOGO_H_
