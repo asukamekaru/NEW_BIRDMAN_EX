@@ -3,7 +3,7 @@
 #include "SceneTitle.h"
 #include "SceneMain.h"
 #include "titleLogo.h"
-#include "titleCharSelect.h"
+#include "titleSelect.h"
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										íËêî									   //

@@ -4,11 +4,11 @@
 #include "SceneMain.h"
 #include "titleLogo.h"
 
+TITLE_LOGO titlelogo;
+
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										’è”									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
-
-TITLE_LOGO titlelogo;
 
 #define _IMG_TITLE_LOGO_Y (160)
 #define _UI_SCROLL_MAX	  (6)
@@ -129,6 +129,4 @@ void TITLE_LOGO::Render()
 	if(icnt & 0x30)sscDrawGraph(320, 360, 1.0, 0.0,iImage[_IMG_TITLE_PtS][0], TRUE, FALSE );
 
 	//ªªªªªª//‰æ‘œ//ªªªªªª//
-
-	DrawString(0,0,"TITLE",_COLOR_WHITE,TRUE);
 }
