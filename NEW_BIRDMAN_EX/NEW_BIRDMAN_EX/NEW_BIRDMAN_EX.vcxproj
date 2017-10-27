@@ -85,6 +85,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DebugMode.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="sceneMain.cpp" />
     <ClCompile Include="sceneTitle.cpp" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="DebugMode.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="sceneMain.h" />

@@ -11,6 +11,9 @@ TITLE_SELECT TitleSelect;
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 
 #define _BGBALL_SPEED 1
+#define _ARROW_P1Y 1
+#define _ARROW_P1Y 1
+
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										初期化									   //
@@ -30,7 +33,7 @@ bool TITLE_SELECT :: initialize()
 		ipLoadImage(&iImage[_TITLE_SELECT_CHARSELECT],"../images/title/select/select_char_select.png",2,2,1,319,400);//選択1,2
 		ipLoadImage(&iImage[_TITLE_SELECT_ARROW],"../images/title/select/select_arrow.png",2,1,2,240,80);//矢印P1P2
 		ipLoadImage(&iImage[_TITLE_SELECT_UPPERTXT],"../images/title/select/stage_upper_txt.png",2,1,2,640,40);//アッパー文字1,2
-		ipLoadImage(&iImage[_TITLE_SELECT_FOOTERTXT],"../images/title/select/select_footer_txt.png",2,1,2,280,40);//フッター文字1,2
+		ipLoadImage(&iImage[_TITLE_SELECT_FOOTERTXT],"../images/title/select/select_footer_txt.png",2,1,2,560,40);//フッター文字1,2
 		ipLoadImage(&iImage[_TITLE_SELECT_CHARFACES],"../images/title/select/select_charaselect.png");//キャラクター顔
 		ipLoadImage(&iImage[_TITLE_SELECT_CHARBODYS],"../images/title/select/select_chars.png");//キャラクター全体
 	}
@@ -83,17 +86,21 @@ void TITLE_SELECT::Render()
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, -fSpinBGBall,iImage[_TITLE_SELECT_BGBALL2][0], TRUE, FALSE );//背景ボール2
 
 	//アッパー文字
-	sscDrawGraph(_DEF_SCREEN_X / 2, 20, 1.0, 0.0,iImage[_TITLE_SELECT_UPPERTXT][0], TRUE, FALSE );//アッパー文字
+	sscDrawGraph(_DEF_SCREEN_X / 2, 20, 1.0, 0.0,iImage[_TITLE_SELECT_UPPERTXT][0], FALSE, FALSE );//アッパー文字
 
 	//フッター文字
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y -20, 1.0, 0.0,iImage[_TITLE_SELECT_FOOTERTXT][0], TRUE, FALSE );//フッター文字
+
+	//矢印
+	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_ARROW][0], TRUE, FALSE );//矢印P1
+	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_ARROW][1], TRUE, FALSE );//矢印P2
 
 	//キャラ決定のUI
 	sscDrawGraph(160, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARSELECT][0], TRUE, FALSE );//キャラ決定時に出るやつ左
 	sscDrawGraph(_DEF_SCREEN_X - 160, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARSELECT][1], TRUE, FALSE );//キャラ決定時に出るやつ右
 	
 	//キャラクターの画像
-	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARFACES][0], FALSE, FALSE );
+	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2 + 100, 1.0, 0.0,iImage[_TITLE_SELECT_CHARFACES][0], FALSE, FALSE );
 
 
 
