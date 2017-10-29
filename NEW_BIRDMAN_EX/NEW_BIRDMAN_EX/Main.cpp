@@ -21,8 +21,11 @@ const int IKEY_INPUT_TBL[] =
 	KEY_INPUT_LEFT,
 	KEY_INPUT_RIGHT,
 	KEY_INPUT_SPACE,
-	KEY_INPUT_RETURN,
-	KEY_INPUT_Z,
+	KEY_INPUT_1,
+	KEY_INPUT_2,
+	KEY_INPUT_3,
+	KEY_INPUT_4,
+	KEY_INPUT_5,
 };
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//

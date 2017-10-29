@@ -22,6 +22,7 @@ class Scene;
 #define _FONTSIZE_L (64)
 
 #define _COLOR_WHITE (0xFFFFFF)
+#define _COLOR_RED (0xFF0000)
 enum {
 	_GAME_START_PLAY,
 	_GAME_START_OVER,
@@ -41,8 +42,11 @@ enum{
 	_KEY_LEFT,
 	_KEY_RIGHT,
 	_KEY_SPACE,
-	_KEY_RETURN,
-	_KEY_Z,
+	_KEY_1,
+	_KEY_2,
+	_KEY_3,
+	_KEY_4,
+	_KEY_5,
 
 	_NUM_KEY,
 };
