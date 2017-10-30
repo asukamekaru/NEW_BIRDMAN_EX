@@ -13,9 +13,7 @@ TITLE_SELECT TitleSelect;
 #define _BGBALL_SPEED 1
 #define _ARROW_P1Y 120
 #define _ARROW_P2Y 220
-
-
-
+#define _ARROW_SPEED 20
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										初期化									   //
@@ -23,8 +21,7 @@ TITLE_SELECT TitleSelect;
 bool TITLE_SELECT :: initialize()
 {
 	fSpinBGBall = 0.0;
-
-	fArrowP1x = -320;
+	fArrowX = _DEF_SCREEN_X;
 
 	if(_IMG_MAX != 0)
 	{
@@ -71,10 +68,8 @@ void TITLE_SELECT::Release()
 bool TITLE_SELECT::Update()
 {
 	//↓↓↓↓↓↓//動くやつのスクリプト//↓↓↓↓↓↓//
-
-	ui_scroll[i].y += (i < 3) ?  0 : ui_scroll[i].speed;
-
 	fSpinBGBall = (fSpinBGBall <= 360) ? fSpinBGBall +=_BGBALL_SPEED : fSpinBGBall -= 360;//背景ボールの回転
+	if(fArrowX > 0)fArrowX -= _ARROW_SPEED;
 
 
 
@@ -99,13 +94,14 @@ void TITLE_SELECT::Render()
 	//フッター文字
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y -20, 1.0, 0.0,iImage[_TITLE_SELECT_FOOTERTXT][0], TRUE, FALSE );//フッター文字
 
-	//矢印
-	sscDrawGraph(_DEF_SCREEN_X / 2, _ARROW_P1Y, 1.0, 0.0,iImage[_TITLE_SELECT_ARROW][0], TRUE, FALSE );//矢印P1
-	sscDrawGraph(_DEF_SCREEN_X / 2, _ARROW_P2Y, 1.0, 0.0,iImage[_TITLE_SELECT_ARROW][1], TRUE, FALSE );//矢印P2
-
 	//キャラ決定のUI
-	sscDrawGraph(fArrowP1x, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARSELECT][0], TRUE, FALSE );//キャラ決定時に出るやつ左
-	sscDrawGraph(fArrowP2x, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARSELECT][1], TRUE, FALSE );//キャラ決定時に出るやつ右
+	sscDrawGraph(_DEF_SCREEN_X / 2 - 160, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARSELECT][0], TRUE, FALSE );//キャラ決定時に出るやつ左
+	sscDrawGraph(_DEF_SCREEN_X / 2 + 160, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARSELECT][1], TRUE, FALSE );//キャラ決定時に出るやつ右
+
+
+	//矢印
+	sscDrawGraph(_DEF_SCREEN_X / 2 + (int)fArrowX, _ARROW_P1Y, 1.0, 0.0,iImage[_TITLE_SELECT_ARROW][0], TRUE, FALSE );//矢印P1
+	sscDrawGraph(_DEF_SCREEN_X / 2 - (int)fArrowX, _ARROW_P2Y, 1.0, 0.0,iImage[_TITLE_SELECT_ARROW][1], TRUE, FALSE );//矢印P2
 
 	//キャラクターの画像
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2 + 100, 1.0, 0.0,iImage[_TITLE_SELECT_CHARFACES][0], FALSE, FALSE );
@@ -115,4 +111,5 @@ void TITLE_SELECT::Render()
 	//↑↑↑↑↑↑//画像//↑↑↑↑↑↑//
 
 	DrawFormatString(0,0,_COLOR_WHITE,"%f",fSpinBGBall);
+	DrawFormatString(0,10,_COLOR_WHITE,"%f",fArrowX);
 }

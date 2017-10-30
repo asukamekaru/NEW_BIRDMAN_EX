@@ -7,6 +7,10 @@ class SCENE_TITLE : public Scene
 {
 
 private:
+	enum{
+		_SCENE_TITLE_LOGO,
+		_SCENE_TITLE_SELECT
+	};
 
 	enum{
 		_IMG_TITLE_LSHUTTER,
@@ -21,13 +25,13 @@ private:
 
 protected:
 
-	int ShutterX;
-	bool ShutterFlg;
+	int iNowTitleMode;//タイトルシーンの描画画面(1,ロゴ画面 2,選択画面)
 
 public:
 	bool initialize();
 	void Release();
 	bool Update();
+	void Shutter();
 	void Render();
 };
 

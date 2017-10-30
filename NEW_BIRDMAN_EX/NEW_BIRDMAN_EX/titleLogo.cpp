@@ -4,7 +4,7 @@
 #include "SceneMain.h"
 #include "titleLogo.h"
 
-TITLE_LOGO titlelogo;
+TITLE_LOGO TitleLogo;
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										íËêî									   //

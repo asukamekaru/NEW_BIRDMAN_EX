@@ -12,13 +12,30 @@
 
 #define _UI_SHUTTER_X (160)
 
+struct ShutterStatus
+{
+	int ShutterX;
+	int ShutterTimer;
+	bool ShutterFlg;
+	bool ShutterMoveFlg;
+};
+
+struct ShutterStatus Yellow =
+{
+	_UI_SHUTTER_X,
+	30,
+	TRUE,
+	FALSE,
+};
+
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										初期化									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 bool SCENE_TITLE :: initialize()
 {
-	ShutterX = _UI_SHUTTER_X;
-	ShutterFlg = TRUE;
+	iNowTitleMode = _SCENE_TITLE_LOGO;//タイトルシーン初期画面をロゴ画面にする
+
+
 
 	if(_IMG_MAX != 0)
 	{
@@ -33,7 +50,7 @@ bool SCENE_TITLE :: initialize()
 		iSe = new int *[_SE_MAX];
 	}
 
-	//TitleLogo.initialize();
+	TitleLogo.initialize();
 	TitleSelect.initialize();
 
 	return true;
@@ -43,6 +60,15 @@ bool SCENE_TITLE :: initialize()
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 void SCENE_TITLE::Release()
 {
+	switch(iNowTitleMode){
+	case _SCENE_TITLE_LOGO:
+		TitleLogo.Release();
+		break;
+	case _SCENE_TITLE_SELECT:
+		TitleSelect.Release();
+		break;
+	}
+
 	for (int i=0; i<_IMG_MAX;i++)
 	{
 		if(iImage[i]) delete iImage[i];
@@ -53,48 +79,72 @@ void SCENE_TITLE::Release()
 		if(iSe[i])delete iSe[i];
 		iSe[i] = NULL;
 	}
-
-	//TitleLogo.Release();
-	TitleSelect.Release();
 }
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										更新									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 bool SCENE_TITLE::Update()
 {
-	//TitleLogo.Update();
-	TitleSelect.Update();
+	switch(iNowTitleMode){
+	case _SCENE_TITLE_LOGO:
+		TitleLogo.Update();
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))
+		break;
+	case _SCENE_TITLE_SELECT:
+		TitleSelect.Update();
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))
+		break;
+	}
 
 	//↓↓↓↓↓↓//シャッター//↓↓↓↓↓↓//
-	
-	if(ShutterFlg == TRUE){//シャッター開く
-		if(ShutterX > -_UI_SHUTTER_X){
-			ShutterX -= 10;
-		}
+
+	if(Yellow.ShutterFlg == TRUE){//シャッター開く
+		if(Yellow.ShutterX > -_UI_SHUTTER_X)Yellow.ShutterX -= 10;
+		else Yellow.ShutterMoveFlg = false;
 	}else{//シャッター閉じる
-		if(ShutterX < _UI_SHUTTER_X){
-			ShutterX += 10;
+		if(Yellow.ShutterX < _UI_SHUTTER_X){
+			Yellow.ShutterX += 10;
+		}else if(--Yellow.ShutterTimer <= 0){
+			Yellow.ShutterTimer = 60;
+			iNowTitleMode = _SCENE_TITLE_SELECT;
+			Yellow.ShutterFlg = true;
+			Yellow.ShutterMoveFlg = false;
 		}
 	}
 
+	if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE) && !Yellow.ShutterMoveFlg) Yellow.ShutterFlg = !Yellow.ShutterFlg , Yellow.ShutterMoveFlg = true;
+
 	//↑↑↑↑↑↑//シャッター//↑↑↑↑↑↑//
 
-	if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))ShutterFlg = !ShutterFlg;
 	return true;
+}
+
+void Shutter(){
+
 }
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										描画									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 void SCENE_TITLE::Render()
 {
-	//TitleLogo.Render();
-	TitleSelect.Render();
+	switch(iNowTitleMode){
+	case _SCENE_TITLE_LOGO:
+		TitleLogo.Render();
+		break;
+	case _SCENE_TITLE_SELECT:
+		TitleSelect.Render();
+		break;
+	}
 
 	//↓↓↓↓↓↓//画像//↓↓↓↓↓↓//
 
 	//シャッター
-	sscDrawGraph(ShutterX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_LSHUTTER][0], FALSE, FALSE );
-	sscDrawGraph(_DEF_SCREEN_X - ShutterX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_RSHUTTER][0], FALSE, FALSE );
+	sscDrawGraph(Yellow.ShutterX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_LSHUTTER][0], FALSE, FALSE );
+	sscDrawGraph(_DEF_SCREEN_X - Yellow.ShutterX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_RSHUTTER][0], FALSE, FALSE );
 
 	//↑↑↑↑↑↑//画像//↑↑↑↑↑↑//
+
+	DrawFormatString(0,20,_COLOR_WHITE,"%f",_NOW_SCREEN_X);
+	DrawFormatString(0,30,_COLOR_WHITE,"%f",_NOW_SCREEN_Y);
+
 }

@@ -28,8 +28,8 @@ private:
 
 protected:
 
-	float fSpinBGBall;
-	float fArrowX;
+	float fSpinBGBall;//”wŒi‚Ìƒ{[ƒ‹‚Ì‰ñ“]
+	float fArrowX;//P1,P2‚Ì–îˆó
 
 public:
 	bool initialize();

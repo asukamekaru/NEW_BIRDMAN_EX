@@ -116,9 +116,9 @@ int sscDrawGraph(int x,int y,double mag, double angle,int graph , bool transFlg 
 	//int iw,ih;	
 	//GetGraphSize(graph,&iw,&ih);
 
-	x *= ((int)_NOW_SCREEN_X / (int)_DEF_SCREEN_X);
-	y *= ((int)_NOW_SCREEN_Y / (int)_DEF_SCREEN_Y);
-	mag *= ((int)_NOW_SCREEN_X / (int)_DEF_SCREEN_X);
+	x *= ((double)_NOW_SCREEN_X / (double)_DEF_SCREEN_X);
+	y *= ((double)_NOW_SCREEN_Y / (double)_DEF_SCREEN_Y);
+	mag *= ((double)_NOW_SCREEN_X / (double)_DEF_SCREEN_X);
 	angle = angle * 3.14159265359 / 180;
 
 	return DrawRotaGraph(x, y, mag, angle,graph,transFlg,turnFlg);
