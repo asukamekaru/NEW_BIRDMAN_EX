@@ -29,6 +29,7 @@ private:
 protected:
 
 	float fSpinBGBall;
+	float fArrowX;
 
 public:
 	bool initialize();

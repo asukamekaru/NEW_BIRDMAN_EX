@@ -2,6 +2,7 @@
 #include "Base.h"
 #include "SceneTitle.h"
 #include "SceneMain.h"
+#include "DebugMode.h"
 #include "titleLogo.h"
 #include "titleSelect.h"
 
