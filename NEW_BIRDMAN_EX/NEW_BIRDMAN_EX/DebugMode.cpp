@@ -4,7 +4,7 @@
 #include "sceneTitle.h"
 #include "DebugMode.h"
 
-char TEXT;
+char *TEXT;
 
 bool DEBUG_MODE::initialize(){
 	TEXT = NULL;
@@ -17,10 +17,10 @@ void DEBUG_MODE::Release(){
 
 bool DEBUG_MODE::Update(){
 	if(iKey_Check(_KEY_MODE_TRG,_KEY_1))vChangeScene(new SCENE_TITLE());
-	if(iKey_Check(_KEY_MODE_TRG,_KEY_2))TEXT = 'ÉGÉâÅ[';
-	if(iKey_Check(_KEY_MODE_TRG,_KEY_3))TEXT = 'ERR';
-	if(iKey_Check(_KEY_MODE_TRG,_KEY_4))TEXT = 'ERR';
-	if(iKey_Check(_KEY_MODE_TRG,_KEY_5))TEXT = 'ERR';
+	if(iKey_Check(_KEY_MODE_TRG,_KEY_2))TEXT = "no scene _ Key2";
+	if(iKey_Check(_KEY_MODE_TRG,_KEY_3))TEXT = "no scene _ Key3";
+	if(iKey_Check(_KEY_MODE_TRG,_KEY_4))TEXT = "no scene _ Key4";
+	if(iKey_Check(_KEY_MODE_TRG,_KEY_5))TEXT = "no scene _ Key5";
 	return true;
 }
 
@@ -34,5 +34,5 @@ void DEBUG_MODE::Render(){
 	DrawString( 0 , _FONTSIZE_S * 5, "KEY4 ..." , _COLOR_WHITE ) ;
 
 	SetFontSize(_FONTSIZE_M) ;
-	DrawFormatString( 0 , _FONTSIZE_S * 8 , _COLOR_RED , "%c" , TEXT ) ;
+	DrawFormatString( 0 , _FONTSIZE_S * 8 , _COLOR_RED , "%s" , TEXT ) ;
 }
