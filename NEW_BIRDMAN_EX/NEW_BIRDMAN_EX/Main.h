@@ -14,8 +14,8 @@ class Scene;
 #define _DEF_SCREEN_X (640)
 #define _DEF_SCREEN_Y (480)
 
-#define _NOW_SCREEN_X (800)//640 1280
-#define _NOW_SCREEN_Y (600)//480 960
+#define _NOW_SCREEN_X (640)//640 1280
+#define _NOW_SCREEN_Y (480)//480 960
 
 #define _FONTSIZE_S (16)
 #define _FONTSIZE_M (32)

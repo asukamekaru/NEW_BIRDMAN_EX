@@ -10,24 +10,19 @@
 //										定数									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 
-#define _UI_SHUTTER_X 160
-#define _UI_SHUTTER_SPEED 10
+#define _UI_SHUTTER_X		160
+#define _UI_SHUTTER_SPEED	10
+#define _UI_SHUTTER_TIME	60
 
 struct ShutterStatus
 {
-	int ShutterX;
-	int ShutterTimer;
-	bool ShutterFlg;
-	bool ShutterMoveFlg;
+	int sX;//ShutterX シャッター画像の位置X
+	int sT;//ShutterTimer シャッターが閉じて再度開くまでの時間
+	bool sF;//ShutterFlag //シャッター起動中
+	bool sMF;//ShutterMoveFlag //シャッター移動中
 };
 
-struct ShutterStatus Yellow =
-{
-	_UI_SHUTTER_X,
-	30,
-	TRUE,
-	FALSE,
-};
+struct ShutterStatus YellowS ={_UI_SHUTTER_X,30,TRUE,FALSE,};
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										初期化									   //
@@ -89,44 +84,23 @@ bool SCENE_TITLE::Update()
 	switch(iNowTitleMode){
 	case _SCENE_TITLE_LOGO:
 		TitleLogo.Update();
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE) && !YellowS.sMF) YellowS.sF = false,YellowS.sMF = true;
 		break;
 	case _SCENE_TITLE_SELECT:
 		TitleSelect.Update();
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE) && !YellowS.sMF) YellowS.sF = false, YellowS.sMF = true;
 		break;
 	}
 
 	//↓↓↓↓↓↓//シャッター//↓↓↓↓↓↓//
 
-	Shutter();
-
-	if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE) && !Yellow.ShutterMoveFlg) Yellow.ShutterFlg = !Yellow.ShutterFlg , Yellow.ShutterMoveFlg = true;
+	Shutter(YellowS.sF ,YellowS.sMF ,YellowS.sX ,YellowS.sT );
 
 	//↑↑↑↑↑↑//シャッター//↑↑↑↑↑↑//
 
 	return true;
 }
 
-void SCENE_TITLE::Shutter(bool shutterFlg,bool shutterMoveFlg){
-
-	if(shutterFlg)//シャッター開く
-	{
-		if(Yellow.ShutterX > -_UI_SHUTTER_X)Yellow.ShutterX -= _UI_SHUTTER_SPEED;
-		else Yellow.ShutterMoveFlg = false;
-	}
-	else//シャッター閉じる
-	{
-		if(Yellow.ShutterX < _UI_SHUTTER_X){
-			Yellow.ShutterX += _UI_SHUTTER_SPEED;
-		}else if(--Yellow.ShutterTimer <= 0){
-			Yellow.ShutterTimer = 60;
-			iNowTitleMode = _SCENE_TITLE_SELECT;
-			Yellow.ShutterFlg = true;
-			Yellow.ShutterMoveFlg = false;
-		}
-	}
-}
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										描画									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
@@ -144,12 +118,48 @@ void SCENE_TITLE::Render()
 	//↓↓↓↓↓↓//画像//↓↓↓↓↓↓//
 
 	//シャッター
-	sscDrawGraph(Yellow.ShutterX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_LSHUTTER][0], FALSE, FALSE );
-	sscDrawGraph(_DEF_SCREEN_X - Yellow.ShutterX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_RSHUTTER][0], FALSE, FALSE );
+	sscDrawGraph(YellowS.sX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_LSHUTTER][0], FALSE, FALSE );
+	sscDrawGraph(_DEF_SCREEN_X - YellowS.sX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_RSHUTTER][0], FALSE, FALSE );
 
 	//↑↑↑↑↑↑//画像//↑↑↑↑↑↑//
 
 	DrawFormatString(0,20,_COLOR_WHITE,"%f",_NOW_SCREEN_X);
 	DrawFormatString(0,30,_COLOR_WHITE,"%f",_NOW_SCREEN_Y);
 
+}
+
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
+//									シャッター 									   //
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
+void SCENE_TITLE::Shutter(bool& shutterFlg,bool& shutterMoveFlg,int& shutterX,int& shutterTime){
+
+	if(shutterFlg)//シャッター開く
+	{
+		if(shutterX > -_UI_SHUTTER_X)shutterX -= _UI_SHUTTER_SPEED;
+		else shutterMoveFlg = false;
+	}
+	else//シャッター閉じる
+	{
+		if(shutterX < _UI_SHUTTER_X){//シャッターを閉じる
+
+			shutterX += _UI_SHUTTER_SPEED;
+
+		}else if(--shutterTime <= 0){//一定時間経てば再度自動的に開く
+
+			switch(iNowTitleMode){
+			case _SCENE_TITLE_LOGO:
+				iNowTitleMode = _SCENE_TITLE_SELECT;
+				break;
+			case _SCENE_TITLE_SELECT:
+				TitleSelect.fArrowX = _DEF_SCREEN_X;
+				iNowTitleMode = _SCENE_TITLE_LOGO;
+				break;
+			}
+
+			//シャッターが開いた状態へ
+			shutterTime = _UI_SHUTTER_TIME;
+			shutterFlg = true;
+			shutterMoveFlg = false;
+		}
+	}
 }

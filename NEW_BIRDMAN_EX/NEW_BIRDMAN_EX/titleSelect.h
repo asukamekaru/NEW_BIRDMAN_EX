@@ -29,9 +29,11 @@ private:
 protected:
 
 	float fSpinBGBall;//”wŒi‚Ìƒ{[ƒ‹‚Ì‰ñ“]
+	
+public:
+
 	float fArrowX;//P1,P2‚Ì–îˆó
 
-public:
 	bool initialize();
 	void Release();
 	bool Update();

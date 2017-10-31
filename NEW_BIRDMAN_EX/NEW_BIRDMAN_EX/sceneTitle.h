@@ -31,7 +31,7 @@ public:
 	bool initialize();
 	void Release();
 	bool Update();
-	void Shutter(bool shutterFlg,bool shutterMoveFlg);
+	void Shutter(bool& shutterFlg,bool& shutterMoveFlg,int& shutterX,int& shutterTime);
 	void Render();
 };
 
