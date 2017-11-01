@@ -13,8 +13,10 @@ private:
 	};
 
 	enum{
-		_IMG_TITLE_LSHUTTER,
-		_IMG_TITLE_RSHUTTER,
+		_IMG_TITLE_YLSHUTTER,//黄シャッター（左）
+		_IMG_TITLE_YRSHUTTER,//黄シャッター（右）
+		_IMG_TITLE_RLSHUTTER,//赤シャッター（左）
+		_IMG_TITLE_RRSHUTTER,//赤シャッター（右）
 		_IMG_MAX
 	};
 
@@ -31,7 +33,7 @@ public:
 	bool initialize();
 	void Release();
 	bool Update();
-	void Shutter(bool& shutterFlg,bool& shutterMoveFlg,int& shutterX,int& shutterTime);
+	void Shutter(bool& shutterFlg,bool& shutterMoveFlg,int& shutterX,int& shutterTime,int shutterUIX);
 	void Render();
 };
 

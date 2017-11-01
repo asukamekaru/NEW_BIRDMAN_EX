@@ -23,6 +23,9 @@ bool TITLE_SELECT :: initialize()
 	fSpinBGBall = 0.0;
 	fArrowX = _DEF_SCREEN_X;
 
+	imeshX[0] = _DEF_SCREEN_X / 2;
+	imeshX[1] = _DEF_SCREEN_X + _DEF_SCREEN_X / 2;
+
 	if(_IMG_MAX != 0)
 	{
 		iImage = new int*[_IMG_MAX];
@@ -69,9 +72,8 @@ bool TITLE_SELECT::Update()
 {
 	//↓↓↓↓↓↓//動くやつのスクリプト//↓↓↓↓↓↓//
 	fSpinBGBall = (fSpinBGBall <= 360) ? fSpinBGBall +=_BGBALL_SPEED : fSpinBGBall -= 360;//背景ボールの回転
-	if(fArrowX > 0)fArrowX -= _ARROW_SPEED;
-
-
+	if(fArrowX > 0)fArrowX -= _ARROW_SPEED;//矢印の移動
+	//for(int i = 0; i < 2; i ++)imeshX[i] = (imeshX[i] >= -_DEF_SCREEN_X/2) ? imeshX[i] -= 2 : imeshX[i] + _DEF_SCREEN_X;//背景網の移動
 
 	return true;
 }
@@ -84,25 +86,20 @@ void TITLE_SELECT::Render()
 
 	//背景
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BG][0], FALSE, FALSE );//背景
-	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BGNET][0], TRUE, FALSE );//背景網
+	sscDrawGraph(imeshX[0], _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BGNET][0], TRUE, FALSE );//背景網1
+	sscDrawGraph(imeshX[1], _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BGNET][0], TRUE, FALSE );//背景網2
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, fSpinBGBall,iImage[_TITLE_SELECT_BGBALL1][0], TRUE, FALSE );//背景ボール1
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, -fSpinBGBall,iImage[_TITLE_SELECT_BGBALL2][0], TRUE, FALSE );//背景ボール2
-
 	//アッパー文字
 	sscDrawGraph(_DEF_SCREEN_X / 2, 20, 1.0, 0.0,iImage[_TITLE_SELECT_UPPERTXT][0], FALSE, FALSE );//アッパー文字
-
 	//フッター文字
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y -20, 1.0, 0.0,iImage[_TITLE_SELECT_FOOTERTXT][0], TRUE, FALSE );//フッター文字
-
 	//キャラ決定のUI
 	sscDrawGraph(_DEF_SCREEN_X / 2 - 160, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARSELECT][0], TRUE, FALSE );//キャラ決定時に出るやつ左
 	sscDrawGraph(_DEF_SCREEN_X / 2 + 160, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_CHARSELECT][1], TRUE, FALSE );//キャラ決定時に出るやつ右
-
-
 	//矢印
 	sscDrawGraph(_DEF_SCREEN_X / 2 + (int)fArrowX, _ARROW_P1Y, 1.0, 0.0,iImage[_TITLE_SELECT_ARROW][0], TRUE, FALSE );//矢印P1
 	sscDrawGraph(_DEF_SCREEN_X / 2 - (int)fArrowX, _ARROW_P2Y, 1.0, 0.0,iImage[_TITLE_SELECT_ARROW][1], TRUE, FALSE );//矢印P2
-
 	//キャラクターの画像
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2 + 100, 1.0, 0.0,iImage[_TITLE_SELECT_CHARFACES][0], FALSE, FALSE );
 

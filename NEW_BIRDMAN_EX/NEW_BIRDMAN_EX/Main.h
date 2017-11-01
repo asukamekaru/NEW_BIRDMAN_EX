@@ -42,6 +42,7 @@ enum{
 	_KEY_LEFT,
 	_KEY_RIGHT,
 	_KEY_SPACE,
+	_KEY_BACK,
 	_KEY_1,
 	_KEY_2,
 	_KEY_3,
