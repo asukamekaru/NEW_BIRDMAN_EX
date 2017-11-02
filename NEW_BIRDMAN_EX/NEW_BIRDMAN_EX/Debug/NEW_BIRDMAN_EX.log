@@ -1,13 +1,14 @@
-﻿2017/11/01 15:59:33 にビルドを開始しました。
+﻿2017/11/02 15:31:10 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\kbc11606120\Documents\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX.vcxproj" (Build ターゲット)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt titleSelect.cpp
-         titleSelect.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt sceneTitle.cpp
+         sceneTitle.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\kbc11606120\Documents\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\Debug\NEW_BIRDMAN_EX.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\kbc11606120\Documents\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\Debug\NEW_BIRDMAN_EX.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\kbc11606120\Documents\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\Debug\NEW_BIRDMAN_EX.lib" /MACHINE:X86 Debug\DebugMode.obj
          Debug\Main.obj
          Debug\sceneMain.obj
          Debug\sceneTitle.obj
+         Debug\titleDescribe.obj
          Debug\titleSelect.obj
          Debug\titleLogo.obj
          NEW_BIRDMAN_EX.vcxproj -> C:\Users\kbc11606120\Documents\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\Debug\NEW_BIRDMAN_EX.exe
@@ -15,4 +16,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:01.73
+経過時間 00:00:01.89

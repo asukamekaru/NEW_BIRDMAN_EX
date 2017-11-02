@@ -5,28 +5,26 @@
 #include "DebugMode.h"
 #include "titleLogo.h"
 #include "titleSelect.h"
+#include "titleDescribe.h"
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										定数									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 
-#define _UI_YSHUTTER_X		160
-#define _UI_RSHUTTER_X		173
-#define _UI_SHUTTER_SPEED	10
-#define _UI_SHUTTER_TIME	60
-
-int test;
+#define _UI_SHUTTER_SPEED	10//シャッター開閉の時間
+#define _UI_SHUTTER_TIME	30//閉じたシャッターが開くまでの時間
 
 struct ShutterStatus
 {
-	int sX;//ShutterX シャッター画像の位置X
+	const int csX;//CShutterX シャッターの固定位置
+	int sX;//ShutterX シャッター画像の初期位置X
 	int sT;//ShutterTimer シャッターが閉じて再度開くまでの時間
 	bool sF;//ShutterFlag //シャッター起動中
 	bool sMF;//ShutterMoveFlag //シャッター移動中
 };
 
-struct ShutterStatus YellowS ={_UI_YSHUTTER_X,30,TRUE,FALSE,};
-struct ShutterStatus RedS ={-_UI_RSHUTTER_X,30,TRUE,FALSE,};
+struct ShutterStatus YellowS ={160,160,_UI_SHUTTER_TIME,TRUE,FALSE,};
+struct ShutterStatus RedS ={173,-173,_UI_SHUTTER_TIME,TRUE,FALSE,};
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										初期化									   //
@@ -52,6 +50,7 @@ bool SCENE_TITLE :: initialize()
 
 	TitleLogo.initialize();
 	TitleSelect.initialize();
+	TitleDescribe.initialize();
 
 	return true;
 }
@@ -66,6 +65,9 @@ void SCENE_TITLE::Release()
 		break;
 	case _SCENE_TITLE_SELECT:
 		TitleSelect.Release();
+		break;
+	case _SCENE_TITLE_DESCRIBE:
+		TitleDescribe.Release();
 		break;
 	}
 
@@ -88,20 +90,20 @@ bool SCENE_TITLE::Update()
 	switch(iNowTitleMode){
 	case _SCENE_TITLE_LOGO:
 		TitleLogo.Update();
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE) && !YellowS.sMF) YellowS.sF = false,YellowS.sMF = true;//進む
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE)) YellowS.sF = false,iTitleState = NEXT;//進む
 		break;
 	case _SCENE_TITLE_SELECT:
 		TitleSelect.Update();
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_BACK) && !YellowS.sMF) YellowS.sF = false,YellowS.sMF = true;//戻る
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE) && !YellowS.sMF) RedS.sF = false,RedS.sMF = true;//進む
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_BACK)) YellowS.sF = false,iTitleState = BACK;//戻る
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE)) RedS.sF = false,iTitleState = NEXT;//進む
+		break;
+	case _SCENE_TITLE_DESCRIBE:
+		TitleDescribe.Update();
 		break;
 	}
 
-	if(iKey_Check(_KEY_MODE_TRG,_KEY_UP))test++;
-	if(iKey_Check(_KEY_MODE_TRG,_KEY_DOWN))test--;
-
-	Shutter(YellowS.sF ,YellowS.sMF ,YellowS.sX ,YellowS.sT ,_UI_YSHUTTER_X);//黄シャッター
-	Shutter(RedS.sF ,RedS.sMF ,RedS.sX ,RedS.sT ,_UI_RSHUTTER_X);//赤シャッター
+	Shutter(YellowS.sF ,YellowS.sX ,YellowS.sT ,YellowS.csX);//黄シャッター
+	Shutter(RedS.sF ,RedS.sX ,RedS.sT ,RedS.csX);//赤シャッター
 
 
 	return true;
@@ -118,6 +120,9 @@ void SCENE_TITLE::Render()
 		break;
 	case _SCENE_TITLE_SELECT:
 		TitleSelect.Render();
+		break;
+	case _SCENE_TITLE_DESCRIBE:
+		TitleDescribe.Render();
 		break;
 	}
 
@@ -141,37 +146,36 @@ void SCENE_TITLE::Render()
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //									シャッター 									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
-void SCENE_TITLE::Shutter(bool& shutterFlg,bool& shutterMoveFlg,int& shutterX,int& shutterTime,int shutterUIX){
+void SCENE_TITLE::Shutter(bool& shutterFlg,int& shutterX,int& shutterTime,int shutterUIX){
 
 	if(shutterFlg)//シャッター開く
 	{
 		if(shutterX > -shutterUIX)shutterX -= _UI_SHUTTER_SPEED;
-		else shutterMoveFlg = false;
 	}
-	else//シャッター閉じる
-	{
-		if(shutterX < shutterUIX){//シャッターを閉じる
 
-			shutterX += _UI_SHUTTER_SPEED;
+	else if(shutterX < shutterUIX){//シャッターを閉じる
 
-			if(shutterX >= shutterUIX)shutterX = shutterUIX;//ずれたら治す
+		shutterX += _UI_SHUTTER_SPEED;
 
-		}else if(--shutterTime <= 0){//一定時間経てば再度自動的に開く
+		if(shutterX >= shutterUIX)shutterX = shutterUIX;//ずれたら治す
 
-			switch(iNowTitleMode){
-			case _SCENE_TITLE_LOGO:
-				iNowTitleMode = _SCENE_TITLE_SELECT;
-				break;
-			case _SCENE_TITLE_SELECT:
-				TitleSelect.fArrowX = _DEF_SCREEN_X;
-				iNowTitleMode = _SCENE_TITLE_LOGO;
-				break;
-			}
+	}else if(--shutterTime <= 0){//一定時間経てば再度自動的に開く
 
-			//シャッターが開いた状態へ
-			shutterTime = _UI_SHUTTER_TIME;
-			shutterFlg = true;
-			shutterMoveFlg = false;
+		switch(iNowTitleMode){
+		case _SCENE_TITLE_LOGO:
+			iNowTitleMode = (iTitleState == NEXT) ? _SCENE_TITLE_SELECT : NULL;//進むか戻るか
+			break;
+		case _SCENE_TITLE_SELECT:
+			TitleSelect.fArrowX = _DEF_SCREEN_X;
+			iNowTitleMode = (iTitleState == NEXT) ? _SCENE_TITLE_DESCRIBE : _SCENE_TITLE_LOGO;//進むか戻るか
+			break;
+		case _SCENE_TITLE_DESCRIBE:
+
+			break;
 		}
+
+		//シャッターが開いた状態へ
+		shutterTime = _UI_SHUTTER_TIME;
+		shutterFlg = true;
 	}
 }

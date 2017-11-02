@@ -9,7 +9,13 @@ class SCENE_TITLE : public Scene
 private:
 	enum{
 		_SCENE_TITLE_LOGO,
-		_SCENE_TITLE_SELECT
+		_SCENE_TITLE_SELECT,
+		_SCENE_TITLE_DESCRIBE
+	};
+
+	enum{
+		NEXT,
+		BACK
 	};
 
 	enum{
@@ -28,12 +34,14 @@ private:
 protected:
 
 	int iNowTitleMode;//タイトルシーンの描画画面(1,ロゴ画面 2,選択画面)
+	int iTitleState;
 
 public:
+
 	bool initialize();
 	void Release();
 	bool Update();
-	void Shutter(bool& shutterFlg,bool& shutterMoveFlg,int& shutterX,int& shutterTime,int shutterUIX);
+	void Shutter(bool& shutterFlg,int& shutterX,int& shutterTime,int shutterUIX);
 	void Render();
 };
 
