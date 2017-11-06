@@ -25,6 +25,7 @@ struct ShutterStatus
 
 struct ShutterStatus YellowS ={160,160,_UI_SHUTTER_TIME,TRUE,FALSE,};
 struct ShutterStatus RedS ={173,-173,_UI_SHUTTER_TIME,TRUE,FALSE,};
+struct ShutterStatus SpriteS ={_DEF_SCREEN_X / 2,- _DEF_SCREEN_X * 2,_UI_SHUTTER_TIME,TRUE,FALSE,};
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										初期化									   //
@@ -39,8 +40,9 @@ bool SCENE_TITLE :: initialize()
 
 		ipLoadImage(&iImage[_IMG_TITLE_YLSHUTTER],"../images/title/title_shutter1.png");//黄シャッター左
 		ipLoadImage(&iImage[_IMG_TITLE_YRSHUTTER],"../images/title/title_shutter2.png");//黄シャッター右
-		ipLoadImage(&iImage[_IMG_TITLE_RLSHUTTER],"../images/title/describe/VS1.png");//赤シャッター左
-		ipLoadImage(&iImage[_IMG_TITLE_RRSHUTTER],"../images/title/describe/VS2.png");//赤シャッター右
+		ipLoadImage(&iImage[_IMG_TITLE_RLSHUTTER],"../images/title/VS1.png");//赤シャッター左
+		ipLoadImage(&iImage[_IMG_TITLE_RRSHUTTER],"../images/title/VS2.png");//赤シャッター右
+		ipLoadImage(&iImage[_IMG_TITLE_SSHUTTER],"../images/title/sprite_shutter.png");//縞シャッター
 	}
 
 	if(_SE_MAX != 0)
@@ -99,11 +101,14 @@ bool SCENE_TITLE::Update()
 		break;
 	case _SCENE_TITLE_DESCRIBE:
 		TitleDescribe.Update();
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_BACK)) RedS.sF = false,iTitleState = BACK;//戻る
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE)) SpriteS.sF = false,iTitleState = NEXT;//進む
 		break;
 	}
 
 	Shutter(YellowS.sF ,YellowS.sX ,YellowS.sT ,YellowS.csX);//黄シャッター
 	Shutter(RedS.sF ,RedS.sX ,RedS.sT ,RedS.csX);//赤シャッター
+	Shutter(SpriteS.sF ,SpriteS.sX ,SpriteS.sT ,SpriteS.csX);//縞シャッター
 
 
 	return true;
@@ -136,10 +141,11 @@ void SCENE_TITLE::Render()
 	sscDrawGraph(RedS.sX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_RLSHUTTER][0], TRUE, FALSE );
 	sscDrawGraph(_DEF_SCREEN_X - RedS.sX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_RRSHUTTER][0], TRUE, FALSE );
 
-	//↑↑↑↑↑↑//画像//↑↑↑↑↑↑//
+	//縞シャッター
+	sscDrawGraph(SpriteS.sX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_IMG_TITLE_SSHUTTER][0], TRUE, FALSE );
+	sscDrawGraph(_DEF_SCREEN_X - SpriteS.sX, _DEF_SCREEN_Y / 2, 1.0, 180.0,iImage[_IMG_TITLE_SSHUTTER][0], TRUE, FALSE );
 
-	DrawFormatString(0,20,_COLOR_WHITE,"%f",_NOW_SCREEN_X);
-	DrawFormatString(0,30,_COLOR_WHITE,"%f",_NOW_SCREEN_Y);
+	//↑↑↑↑↑↑//画像//↑↑↑↑↑↑//
 
 }
 
@@ -170,7 +176,7 @@ void SCENE_TITLE::Shutter(bool& shutterFlg,int& shutterX,int& shutterTime,int sh
 			iNowTitleMode = (iTitleState == NEXT) ? _SCENE_TITLE_DESCRIBE : _SCENE_TITLE_LOGO;//進むか戻るか
 			break;
 		case _SCENE_TITLE_DESCRIBE:
-
+			iNowTitleMode = (iTitleState == NEXT) ? NULL : NULL;//進むか戻るか
 			break;
 		}
 

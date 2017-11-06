@@ -8,7 +8,7 @@ class TITLE_SELECT : public Scene
 
 private:
 
-	int imeshX[2];
+	int imeshX;
 
 	enum{
 		_TITLE_SELECT_BG,

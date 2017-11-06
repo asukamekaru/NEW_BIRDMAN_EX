@@ -1,7 +1,6 @@
 #include "Main.h"
 #include "Base.h"
 #include "SceneTitle.h"
-#include "SceneMain.h"
 #include "titleSelect.h"
 
 TITLE_SELECT TitleSelect;
@@ -11,6 +10,7 @@ TITLE_SELECT TitleSelect;
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 
 #define _BGBALL_SPEED 1
+#define _BGMESH_SPEED 2
 #define _ARROW_P1Y 120
 #define _ARROW_P2Y 220
 #define _ARROW_SPEED 20
@@ -23,8 +23,7 @@ bool TITLE_SELECT :: initialize()
 	fSpinBGBall = 0.0;
 	fArrowX = _DEF_SCREEN_X;
 
-	imeshX[0] = _DEF_SCREEN_X / 2;
-	imeshX[1] = _DEF_SCREEN_X + _DEF_SCREEN_X / 2;
+	imeshX = _DEF_SCREEN_X / 2;
 
 	if(_IMG_MAX != 0)
 	{
@@ -72,8 +71,9 @@ bool TITLE_SELECT::Update()
 {
 	//Å´Å´Å´Å´Å´Å´//ìÆÇ≠Ç‚Ç¬ÇÃÉXÉNÉäÉvÉg//Å´Å´Å´Å´Å´Å´//
 	fSpinBGBall = (fSpinBGBall <= 360) ? fSpinBGBall +=_BGBALL_SPEED : fSpinBGBall -= 360;//îwåiÉ{Å[ÉãÇÃâÒì]
+	imeshX = (imeshX >= -_DEF_SCREEN_X / 2) ? imeshX -= _BGMESH_SPEED : _DEF_SCREEN_X / 2;//îwåiñ‘ÇÃà⁄ìÆ
+
 	if(fArrowX > 0)fArrowX -= _ARROW_SPEED;//ñÓàÛÇÃà⁄ìÆ
-	//for(int i = 0; i < 2; i ++)imeshX[i] = (imeshX[i] >= -_DEF_SCREEN_X/2) ? imeshX[i] -= 2 : imeshX[i] + _DEF_SCREEN_X;//îwåiñ‘ÇÃà⁄ìÆ
 
 	return true;
 }
@@ -86,8 +86,8 @@ void TITLE_SELECT::Render()
 
 	//îwåi
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BG][0], FALSE, FALSE );//îwåi
-	sscDrawGraph(imeshX[0], _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BGNET][0], TRUE, FALSE );//îwåiñ‘1
-	sscDrawGraph(imeshX[1], _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BGNET][0], TRUE, FALSE );//îwåiñ‘2
+	sscDrawGraph(imeshX, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BGNET][0], TRUE, FALSE );//îwåiñ‘1
+	sscDrawGraph(imeshX + _DEF_SCREEN_X, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_TITLE_SELECT_BGNET][0], TRUE, FALSE );//îwåiñ‘2
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, fSpinBGBall,iImage[_TITLE_SELECT_BGBALL1][0], TRUE, FALSE );//îwåiÉ{Å[Éã1
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, -fSpinBGBall,iImage[_TITLE_SELECT_BGBALL2][0], TRUE, FALSE );//îwåiÉ{Å[Éã2
 	//ÉAÉbÉpÅ[ï∂éö

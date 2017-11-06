@@ -23,6 +23,7 @@ private:
 		_IMG_TITLE_YRSHUTTER,//黄シャッター（右）
 		_IMG_TITLE_RLSHUTTER,//赤シャッター（左）
 		_IMG_TITLE_RRSHUTTER,//赤シャッター（右）
+		_IMG_TITLE_SSHUTTER,//縞シャッター（左）
 		_IMG_MAX
 	};
 
