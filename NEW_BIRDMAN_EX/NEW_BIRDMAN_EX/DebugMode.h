@@ -15,6 +15,9 @@ public:
 	void Release();
 	bool Update();
 	void Render();
+	void SceneSelect();
+	void CharSelectP1();
+	void CharSelectP2();
 };
 
 #endif //!_DEBUG_MODE_H_
