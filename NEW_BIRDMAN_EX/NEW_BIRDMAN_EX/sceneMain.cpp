@@ -64,7 +64,6 @@ void SceneMain::Render()
 	switch (stGameW.iState)
 	{
 	case _GAME_START_PLAY:
-
 		break;
 
 	case _GAME_START_CLEAR:

@@ -23,11 +23,27 @@ class Scene;
 
 #define _COLOR_WHITE (0xFFFFFF)
 #define _COLOR_RED (0xFF0000)
-enum {
-	_GAME_START_PLAY,
-	_GAME_START_OVER,
-	_GAME_START_CLEAR,
+
+//int iNowChar1P,iNowChar2P,iNowStage;
+
+enum {//ƒLƒƒƒ‰‚Ì–¼‘O
+	_BIRD_MAN,
+	_DAR_VISH,
+	_GACHUPIN,
+	_TAKA_GORO,
+	_CALO_RIE,
+	_MR_MINECRAFT,
+	_ROSE,
+	_SARABORG,
+	_THIEF,
+	_JOHNNY_SHI,
+	_LESIER,
+	_ZIP,
+	_HIBIKI,
+	_SOTAI_KUN,
 };
+
+
 
 enum{
 	_KEY_MODE_NOW,

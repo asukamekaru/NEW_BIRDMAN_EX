@@ -11,11 +11,20 @@ private:
 	};
 
 	enum{
+		_SE_MAX
+	};
+
+	enum{
 		_BGM_GAME_PLAY,
 		_BGM_GAME_OVER,
 		_BGM_GAME_CLEAR,
-		_SE_MAX
 	};
+
+	enum {
+	_GAME_START_PLAY,
+	_GAME_START_OVER,
+	_GAME_START_CLEAR,
+};
 
 	void Message(char* msg);
 
