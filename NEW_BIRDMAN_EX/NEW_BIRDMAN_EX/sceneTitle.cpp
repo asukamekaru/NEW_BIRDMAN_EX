@@ -1,7 +1,7 @@
 #include "Main.h"
 #include "Base.h"
 #include "SceneTitle.h"
-#include "SceneMain.h"
+#include "SceneGMain.h"
 #include "DebugMode.h"
 #include "titleLogo.h"
 #include "titleSelect.h"

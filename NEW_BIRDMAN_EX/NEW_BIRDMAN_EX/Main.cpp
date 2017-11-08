@@ -65,9 +65,8 @@ int iKey_Check(int iMode,int iKey)
 		iResult = stGameW.iNowKey[iKey];
 		break;
 	case _KEY_MODE_TRG://âüÇ≥ÇÍÇΩèuä‘
-		if((stGameW.iOldKey[iKey] == 0)&&
-			(stGameW.iNowKey[iKey] == 1)
-			){
+		if((stGameW.iOldKey[iKey] == 0)&&(stGameW.iNowKey[iKey] == 1))
+		{
 				iResult = 1;	
 		}
 		break;

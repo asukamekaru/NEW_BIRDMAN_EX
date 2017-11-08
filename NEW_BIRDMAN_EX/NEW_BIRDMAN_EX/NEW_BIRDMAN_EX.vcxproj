@@ -87,7 +87,10 @@
   <ItemGroup>
     <ClCompile Include="DebugMode.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="sceneMain.cpp" />
+    <ClCompile Include="GMain1P.cpp" />
+    <ClCompile Include="GMain2P.cpp" />
+    <ClCompile Include="GMainUI.cpp" />
+    <ClCompile Include="sceneGMain.cpp" />
     <ClCompile Include="sceneTitle.cpp" />
     <ClCompile Include="titleDescribe.cpp" />
     <ClCompile Include="titleSelect.cpp" />
@@ -97,8 +100,10 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="DebugMode.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="GMain1P.h" />
+    <ClInclude Include="GMain2P.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="sceneMain.h" />
+    <ClInclude Include="sceneGMain.h" />
     <ClInclude Include="sceneTitle.h" />
     <ClInclude Include="titleDescribe.h" />
     <ClInclude Include="titleSelect.h" />
