@@ -1,9 +1,9 @@
 #ifndef _DEBUG_MODE_H_
 #define _DEBUG_MODE_H_
 
-#include"Scene.h"
+#include"Base.h"
 
-class DEBUG_MODE : public Scene
+class DEBUG_MODE : public BASE_WORK
 {
 
 private:
@@ -18,6 +18,7 @@ public:
 	void SceneSelect();
 	void CharSelectP1();
 	void CharSelectP2();
+	void StageSelect();
 };
 
 #endif //!_DEBUG_MODE_H_

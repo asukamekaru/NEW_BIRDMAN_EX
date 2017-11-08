@@ -24,8 +24,6 @@ class Scene;
 #define _COLOR_WHITE (0xFFFFFF)
 #define _COLOR_RED (0xFF0000)
 
-//int iNowChar1P,iNowChar2P,iNowStage;
-
 enum {//ƒLƒƒƒ‰‚Ì–¼‘O
 	_BIRD_MAN,
 	_DAR_VISH,

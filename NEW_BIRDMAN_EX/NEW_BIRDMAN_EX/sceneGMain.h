@@ -7,17 +7,12 @@ class SceneGMain : public Scene
 {
 private:
 	enum{
+
 		_IMG_MAX
 	};
 
 	enum{
 		_SE_MAX
-	};
-
-	enum{
-		_BGM_GAME_PLAY,
-		_BGM_GAME_OVER,
-		_BGM_GAME_CLEAR,
 	};
 
 	enum {

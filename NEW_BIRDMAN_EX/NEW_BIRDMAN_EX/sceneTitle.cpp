@@ -7,6 +7,9 @@
 #include "titleSelect.h"
 #include "titleDescribe.h"
 
+#include <stdio.h>
+#include <string.h>
+
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										定数									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
@@ -34,11 +37,19 @@ bool SCENE_TITLE :: initialize()
 {
 	iNowTitleMode = _SCENE_TITLE_LOGO;//タイトルシーン初期画面をロゴ画面にする
 
+	char buf[245];
+	const char *s1 = "../images/title/";
+	const char *s2 = "title_shutter1";
+	const char *s3 = ".png";
+	strcpy_s(buf, s1);
+	strcat_s(buf, s2);
+	strcat_s(buf, s3);
+
 	if(_IMG_MAX != 0)
 	{
 		iImage = new int*[_IMG_MAX];
 
-		ipLoadImage(&iImage[_IMG_TITLE_YLSHUTTER],"../images/title/title_shutter1.png");//黄シャッター左
+		ipLoadImage(&iImage[_IMG_TITLE_YLSHUTTER],buf);//黄シャッター左
 		ipLoadImage(&iImage[_IMG_TITLE_YRSHUTTER],"../images/title/title_shutter2.png");//黄シャッター右
 		ipLoadImage(&iImage[_IMG_TITLE_RLSHUTTER],"../images/title/VS1.png");//赤シャッター左
 		ipLoadImage(&iImage[_IMG_TITLE_RRSHUTTER],"../images/title/VS2.png");//赤シャッター右
@@ -56,6 +67,7 @@ bool SCENE_TITLE :: initialize()
 
 	return true;
 }
+
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										解放									   //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
