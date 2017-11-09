@@ -3,7 +3,7 @@
 
 #include"Base.h"
 
-class DEBUG_MODE : public BASE_WORK
+class DEBUG_MODE : public Scene
 {
 
 private:

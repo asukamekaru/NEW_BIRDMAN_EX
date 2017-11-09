@@ -3,11 +3,14 @@
 
 #include "Scene.h"
 
-class SceneGMain : public Scene
+class SCENE_GMAIN : public Scene
 {
 private:
-	enum{
 
+	enum{
+		_SCENE_GMAIN_C1P,//プレイヤー1
+		_SCENE_GMAIN_C2P,//プレイヤー2
+		_SCENE_GMAIN_STAGE,//ステージ
 		_IMG_MAX
 	};
 

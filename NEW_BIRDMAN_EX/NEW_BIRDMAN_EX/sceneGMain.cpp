@@ -1,14 +1,21 @@
 #include "Main.h"
 #include "SceneGMain.h"
 #include "SceneTitle.h"
+
+const char *c1PLoadFile = "a";
+const char *c2PLoadFile = "a";
+const char *cStageLoadFile = "a";
+char c1PLoad[245];
+char c2PLoad[245];
+char cStageLoad[245];
 //
 //èâä˙âª
 //
-bool SceneGMain::initialize()
+bool SCENE_GMAIN::initialize()
 {
 	if(_IMG_MAX != 0)
 	{
-		
+
 		iImage = new int *[_IMG_MAX];
 	}
 
@@ -21,10 +28,12 @@ bool SceneGMain::initialize()
 
 	return true;
 }
+
+void
 //
 //âï˙
 //
-void SceneGMain :: Release()
+void SCENE_GMAIN :: Release()
 {
 	for (int i = 0;i<_IMG_MAX;i++)
 	{
@@ -41,7 +50,7 @@ void SceneGMain :: Release()
 //
 //çXêV
 //
-bool SceneGMain :: Update()
+bool SCENE_GMAIN :: Update()
 {
 	switch (stGameW.iState)
 	{
@@ -58,7 +67,7 @@ bool SceneGMain :: Update()
 //
 //ï`âÊ
 //
-void SceneGMain::Render()
+void SCENE_GMAIN::Render()
 {
 
 	switch (stGameW.iState)

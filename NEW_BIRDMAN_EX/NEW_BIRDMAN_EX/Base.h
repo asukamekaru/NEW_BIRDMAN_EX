@@ -6,11 +6,6 @@ protected:
 	
 
 public:
-	
-	static int iNowChar1P;
-	static int iNowChar2P;
-	static int iNowStage;
-
 	BASE_WORK()
 	{
 		//ZeroMemory(this,sizeof(BASE_WORK));

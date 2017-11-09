@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Main.h"
 #include "sceneTitle.h"
+#include "sceneGMain.h"
 #include "DebugMode.h"
 
 char *TEXT;
@@ -39,17 +40,17 @@ bool DEBUG_MODE::Update(){
 	case CHAR_P1:
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_LEFT))iselect = (iselect == 0) ? 13 : iselect -= 1;//左
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_RIGHT))iselect = (iselect == 13) ? 0 : iselect += 1;//右
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))iNowChar1P = iselect;
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))iNowChar1P = iselect,iNowSelect = CHAR_P2;
 		break;
 	case CHAR_P2:
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_LEFT))iselect = (iselect == 0) ? 13 : iselect -= 1;//左
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_RIGHT))iselect = (iselect == 13) ? 0 : iselect += 1;//右
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))iNowChar2P = iselect;
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))iNowChar2P = iselect,iNowSelect = STAGE;
 		break;
 	case STAGE:
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_LEFT))iselect = (iselect == 0) ? 13 : iselect -= 1;//左
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_RIGHT))iselect = (iselect >= 10) ? 0 : iselect += 1;//右
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))iNowStage = iselect;
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_LEFT))iselect = (iselect == 0) ? 9 : iselect -= 1;//左
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_RIGHT))iselect = (iselect >= 9) ? 0 : iselect += 1;//右
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))iNowStage = iselect,vChangeScene(new SCENE_GMAIN());
 		break;
 	}
 	return true;
@@ -90,7 +91,7 @@ void DEBUG_MODE::CharSelectP1(){
 	SetFontSize(_FONTSIZE_M) ;
 	DrawString( 0 , _FONTSIZE_M * 0, "SELECT CHAR P1" , _COLOR_RED ) ;
 	DrawString( 0 , _FONTSIZE_M * 1, "PUSH ← →" , _COLOR_RED ) ;
-	DrawString( 0 , _FONTSIZE_M * 1, "PUSH SPACE" , _COLOR_RED ) ;
+	DrawString( 0 , _FONTSIZE_M * 2, "PUSH SPACE" , _COLOR_RED ) ;
 	DrawFormatString( 0 , _FONTSIZE_S * 8 , _COLOR_RED , "%s" , character[iselect] ) ;
 }
 
@@ -98,7 +99,7 @@ void DEBUG_MODE::CharSelectP2(){
 	SetFontSize(_FONTSIZE_M) ;
 	DrawString( 0 , _FONTSIZE_M * 0, "SELECT CHAR P2" , _COLOR_RED ) ;
 	DrawString( 0 , _FONTSIZE_M * 1, "PUSH ← →" , _COLOR_RED ) ;
-	DrawString( 0 , _FONTSIZE_M * 1, "PUSH SPACE" , _COLOR_RED ) ;
+	DrawString( 0 , _FONTSIZE_M * 2, "PUSH SPACE" , _COLOR_RED ) ;
 	DrawFormatString( 0 , _FONTSIZE_S * 8 , _COLOR_RED , "%s" , character[iselect] ) ;
 }
 
@@ -106,6 +107,6 @@ void DEBUG_MODE::StageSelect(){
 	SetFontSize(_FONTSIZE_M) ;
 	DrawString( 0 , _FONTSIZE_M * 0, "SELECT STAGE" , _COLOR_RED ) ;
 	DrawString( 0 , _FONTSIZE_M * 1, "PUSH ← →" , _COLOR_RED ) ;
-	DrawString( 0 , _FONTSIZE_M * 1, "PUSH SPACE" , _COLOR_RED ) ;
-	DrawFormatString( 0 , _FONTSIZE_S * 8 , _COLOR_RED , "STAGE %s" , iselect ) ;
+	DrawString( 0 , _FONTSIZE_M * 2, "PUSH SPACE" , _COLOR_RED ) ;
+	DrawFormatString( 0 , _FONTSIZE_S * 8 , _COLOR_RED , "STAGE %d" , iselect ) ;
 }

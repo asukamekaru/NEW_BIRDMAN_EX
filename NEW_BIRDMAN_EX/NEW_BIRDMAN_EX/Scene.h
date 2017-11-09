@@ -7,7 +7,14 @@ protected:
 	int **iImage;
 	int **iSe;
 
+	
+
 public:
+
+	int iNowChar1P;
+	int iNowChar2P;
+	int iNowStage;
+
 	virtual bool initialize() = 0;
 	virtual void Release() = 0;
 	virtual bool Update() = 0;
