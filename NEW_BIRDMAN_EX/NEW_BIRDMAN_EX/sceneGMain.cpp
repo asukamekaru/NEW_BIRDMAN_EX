@@ -2,20 +2,22 @@
 #include "SceneGMain.h"
 #include "SceneTitle.h"
 
-const char *c1PLoadFile = "a";
-const char *c2PLoadFile = "a";
-const char *cStageLoadFile = "a";
-char c1PLoad[245];
-char c2PLoad[245];
-char cStageLoad[245];
+char *cImageLoad[3];
+
 //
 //èâä˙âª
 //
 bool SCENE_GMAIN::initialize()
 {
+
+	for(int i = 0; i < 3; i++)initCandM(i);
+
 	if(_IMG_MAX != 0)
 	{
-
+		ipLoadImage(&iImage[_SCENE_GMAIN_STAGE],cImageLoad[_SCENE_GMAIN_STAGE]);//îwåi
+		ipLoadImage(&iImage[_SCENE_GMAIN_C1P],cImageLoad[_SCENE_GMAIN_C1P]);//1PÇÃâÊëú
+		ipLoadImage(&iImage[_SCENE_GMAIN_C2P],cImageLoad[_SCENE_GMAIN_C2P]);//2PÇÃâÊëú
+		
 		iImage = new int *[_IMG_MAX];
 	}
 
@@ -28,12 +30,18 @@ bool SCENE_GMAIN::initialize()
 
 	return true;
 }
+void SCENE_GMAIN::initCandM(int a){
+	char *cImageCandS[3] ={"../images/gamemain","../images/gamemain/character",""};//0:îwåiâÊëú 1:1PâÊëú 2:2PâÊëú ---- ëO
+	char *cImageCandS[3] ={".png","",""};//0:îwåiâÊëú 1:1PâÊëú 2:2PâÊëú ---- å„
+	strcpy_s(buf, s1);
+	strcat_s(buf, s2);
+	strcat_s(buf, s3);
+}
 
-void
 //
 //âï˙
 //
-void SCENE_GMAIN :: Release()
+void SCENE_GMAIN::Release()
 {
 	for (int i = 0;i<_IMG_MAX;i++)
 	{

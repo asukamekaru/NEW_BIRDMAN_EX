@@ -8,9 +8,9 @@ class SCENE_GMAIN : public Scene
 private:
 
 	enum{
+		_SCENE_GMAIN_STAGE,//ステージ
 		_SCENE_GMAIN_C1P,//プレイヤー1
 		_SCENE_GMAIN_C2P,//プレイヤー2
-		_SCENE_GMAIN_STAGE,//ステージ
 		_IMG_MAX
 	};
 
@@ -28,6 +28,7 @@ private:
 
 public:
 	bool initialize();
+	bool initCandM(int a);
 	void Release();
 	bool Update();
 	void Render();
