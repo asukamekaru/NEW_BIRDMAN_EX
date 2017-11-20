@@ -3,7 +3,9 @@
 
 class BASE_WORK{
 protected:
-	
+
+
+
 
 public:
 	BASE_WORK()

@@ -1,5 +1,6 @@
 #include"DxLib.h"
 #include"Main.h"
+#include"Base.h"
 #include"Scene.h"
 #include"SceneTitle.h"
 #include"SceneGMain.h"
@@ -29,11 +30,10 @@ const int IKEY_INPUT_TBL[] =
 	KEY_INPUT_4,
 	KEY_INPUT_5,
 };
-
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //									グローバル									　 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
-GAME_WORK stGameW;//ゲーム管理
+GAME_WORK GameWork;//ゲーム管理
 Scene* nowScene = NULL;//現行シーン
 Scene* nextScene = NULL;//次のシーン
 
@@ -48,8 +48,8 @@ void vKey_Update()
 	int iCnt;
 
 	for(iCnt = 0; iCnt<_NUM_KEY;iCnt++){
-		stGameW.iOldKey[iCnt] = stGameW.iNowKey[iCnt];
-		stGameW.iNowKey[iCnt] = Buf[IKEY_INPUT_TBL[iCnt]];
+		GameWork.iOldKey[iCnt] = GameWork.iNowKey[iCnt];
+		GameWork.iNowKey[iCnt] = Buf[IKEY_INPUT_TBL[iCnt]];
 	}
 }
 
@@ -63,10 +63,10 @@ int iKey_Check(int iMode,int iKey)
 	switch (iMode){
 	case _KEY_MODE_NOW: //押されている
 	default:
-		iResult = stGameW.iNowKey[iKey];
+		iResult = GameWork.iNowKey[iKey];
 		break;
 	case _KEY_MODE_TRG://押された瞬間
-		if((stGameW.iOldKey[iKey] == 0)&&(stGameW.iNowKey[iKey] == 1))
+		if((GameWork.iOldKey[iKey] == 0)&&(GameWork.iNowKey[iKey] == 1))
 		{
 				iResult = 1;	
 		}
@@ -117,8 +117,8 @@ int sscDrawGraph(int x,int y,double mag, double angle,int graph , bool transFlg 
 	//int iw,ih;	
 	//GetGraphSize(graph,&iw,&ih);
 
-	x *= ((double)_NOW_SCREEN_X / (double)_DEF_SCREEN_X);
-	y *= ((double)_NOW_SCREEN_Y / (double)_DEF_SCREEN_Y);
+	x *= (int)((double)_NOW_SCREEN_X / (double)_DEF_SCREEN_X);
+	y *= (int)((double)_NOW_SCREEN_Y / (double)_DEF_SCREEN_Y);
 	mag *= ((double)_NOW_SCREEN_X / (double)_DEF_SCREEN_X);
 	angle = angle * 3.14159265359 / 180;
 

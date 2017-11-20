@@ -78,16 +78,22 @@ enum{
 
 typedef struct{
 	int iState;
-	
+
+	static int iNowChar1P;
+	static int iNowChar2P;
+	static int iNowStage;
+
 	int iNowKey[_NUM_KEY];
 	int iOldKey[_NUM_KEY];
 
 }GAME_WORK;
 
+
+
 //
 //ƒOƒ[ƒoƒ‹
 //
-extern GAME_WORK stGameW;
+extern GAME_WORK GameWork;
 
 //
 //ŠÖ”éŒ¾
