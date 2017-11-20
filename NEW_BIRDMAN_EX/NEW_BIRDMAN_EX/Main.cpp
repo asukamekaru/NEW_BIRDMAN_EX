@@ -2,6 +2,7 @@
 #include"Main.h"
 #include"Scene.h"
 #include"SceneTitle.h"
+#include"SceneGMain.h"
 #include"DebugMode.h"
 
 #include<stdio.h>

@@ -1,8 +1,17 @@
 #include "Main.h"
-#include "SceneGMain.h"
+#include "Base.h"
 #include "SceneTitle.h"
+#include "SceneGMain.h"
+#include "DebugMode.h"
 
-char *cImageLoad[3];
+#include <stdio.h>
+#include <string.h>
+
+char cImageLoad[254];
+
+char a[254];
+char b;
+int c = 0;
 
 //
 //èâä˙âª
@@ -10,32 +19,64 @@ char *cImageLoad[3];
 bool SCENE_GMAIN::initialize()
 {
 
-	for(int i = 0; i < 3; i++)initCandM(i);
+	/*initCandM(_SCENE_GMAIN_STAGE,(char)iNowStage);
+	initCandM(_SCENE_GMAIN_C1P,(char)iNowChar1P);
+	initCandM(_SCENE_GMAIN_C2P,(char)iNowChar2P);*/
+
+	//0:îwåiâÊëú 1:1PâÊëú 2:2PâÊëú ---- ëO
+	char *cImageHead[3] ={"../images/gamemain/main_stage","../images/gamemain/character","../images/gamemain/character"};
+	//0:îwåiâÊëú 1:1PâÊëú 2:2PâÊëú ---- å„
+	char *cImageFoot[3] ={".png","charactor1P.png","charactor2P.png"};
+
+	//char *a = (char*)iNowStage;
+
+	char a[254];
+	char *b;
+	int c = 0;
+
+	strcpy_s(a, "../images/gamemain/main_stage");
+	strcat_s(a, '0' + c);
+	strcat_s(a, ".png");
 
 	if(_IMG_MAX != 0)
 	{
-		ipLoadImage(&iImage[_SCENE_GMAIN_STAGE],cImageLoad[_SCENE_GMAIN_STAGE]);//îwåi
-		ipLoadImage(&iImage[_SCENE_GMAIN_C1P],cImageLoad[_SCENE_GMAIN_C1P]);//1PÇÃâÊëú
-		ipLoadImage(&iImage[_SCENE_GMAIN_C2P],cImageLoad[_SCENE_GMAIN_C2P]);//2PÇÃâÊëú
-		
 		iImage = new int *[_IMG_MAX];
+
+
+		ipLoadImage(&iImage[_SCENE_GMAIN_STAGE],a);//îwåi
+		//ipLoadImage(&iImage[_SCENE_GMAIN_STAGE],&initCandM("../images/gamemain/main_stage",iNowStage, ".png"));//îwåi
+		//ipLoadImage(&iImage[_SCENE_GMAIN_C1P],initCandM(char *HEAD_ADDRESS,int *NOWNUM,char *FOOT_ADDRESS));//1PÇÃâÊëú
+		//ipLoadImage(&iImage[_SCENE_GMAIN_C2P],initCandM(char *HEAD_ADDRESS,int *NOWNUM,char *FOOT_ADDRESS));//2PÇÃâÊëú
+
+
 	}
 
 	if(_SE_MAX != 0)
 	{
 		iSe = new int *[_SE_MAX];
+
+
 	}
 
-	stGameW.iState = _GAME_START_PLAY;
+	//stGameW.iState = _GAME_START_PLAY;
 
 	return true;
 }
-void SCENE_GMAIN::initCandM(int a){
-	char *cImageCandS[3] ={"../images/gamemain","../images/gamemain/character",""};//0:îwåiâÊëú 1:1PâÊëú 2:2PâÊëú ---- ëO
-	char *cImageCandS[3] ={".png","",""};//0:îwåiâÊëú 1:1PâÊëú 2:2PâÊëú ---- å„
-	strcpy_s(buf, s1);
-	strcat_s(buf, s2);
-	strcat_s(buf, s3);
+
+char& SCENE_GMAIN::initCandM(char* HEAD_ADDRESS,int NOWNUM,char* FOOT_ADDRESS){
+
+	int iChangeVar = NOWNUM;
+	char cChangeVar;
+	char LoadAddress[254];
+
+	//cChangeVar = '0' + iChangeVar;
+
+	strcpy_s(LoadAddress, "../images/gamemain/main_stage");
+	strcat_s(LoadAddress, "0");
+	strcat_s(LoadAddress, ".png");
+	strcat_s(LoadAddress, "\0");
+
+	return *LoadAddress;
 }
 
 //
@@ -54,38 +95,22 @@ void SCENE_GMAIN::Release()
 		if(iSe[i])delete iSe[i];
 		iSe[i] = NULL;
 	}
+
 }
 //
 //çXêV
 //
 bool SCENE_GMAIN :: Update()
 {
-	switch (stGameW.iState)
-	{
-	case _GAME_START_PLAY:
-		break;
-	case _GAME_START_CLEAR:
-		break;
-	case _GAME_START_OVER:
-		return true;
-		break;
-	}
-	return false;
+
+	return true;
 }
 //
 //ï`âÊ
 //
 void SCENE_GMAIN::Render()
 {
+	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_SCENE_GMAIN_STAGE][0], FALSE, FALSE );	
 
-	switch (stGameW.iState)
-	{
-	case _GAME_START_PLAY:
-		break;
-
-	case _GAME_START_CLEAR:
-		break;
-	case _GAME_START_OVER:
-		break;
-	}
+	DrawString( 0 , 0, a , _COLOR_WHITE ) ;
 }

@@ -28,7 +28,7 @@ private:
 
 public:
 	bool initialize();
-	bool initCandM(int a);
+	char& initCandM(char* HEAD_ADDRESS,int NOWNUM,char* FOOT_ADDRESS);
 	void Release();
 	bool Update();
 	void Render();
