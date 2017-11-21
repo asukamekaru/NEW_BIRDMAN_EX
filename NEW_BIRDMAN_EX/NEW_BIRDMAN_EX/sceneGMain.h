@@ -11,6 +11,10 @@ private:
 		_SCENE_GMAIN_STAGE,//ステージ
 		_SCENE_GMAIN_C1P,//プレイヤー1
 		_SCENE_GMAIN_C2P,//プレイヤー2
+		_SCENE_GMAIN_UPPER_1,//上画面のUI1
+		_SCENE_GMAIN_UPPER_2,//上画面のUI2
+		_SCENE_GMAIN_FOOTER_1,//下画面のUI1
+		_SCENE_GMAIN_FOOTER_2,//下画面のUI2
 		_IMG_MAX
 	};
 

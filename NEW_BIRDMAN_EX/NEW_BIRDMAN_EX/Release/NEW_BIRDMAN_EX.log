@@ -1,0 +1,68 @@
+﻿2017/11/21 15:47:18 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\kbc11606120\Documents\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt DebugMode.cpp GMainPMgr.cpp Main.cpp GMain1P.cpp GMain2P.cpp GMainUI.cpp sceneGMain.cpp sceneTitle.cpp titleDescribe.cpp titleSelect.cpp titleLogo.cpp
+         DebugMode.cpp
+     1>DebugMode.cpp(80): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [36]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(82): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [11]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(83): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [10]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(84): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [9]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(85): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [9]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(88): error C2664: 'DxLib::DrawFormatString' : 4 番目の引数を 'const char [3]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(93): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [15]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(94): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [11]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(95): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [11]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(96): error C2664: 'DxLib::DrawFormatString' : 4 番目の引数を 'const char [3]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(101): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [15]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(102): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [11]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(103): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [11]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(104): error C2664: 'DxLib::DrawFormatString' : 4 番目の引数を 'const char [3]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(109): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [13]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(110): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [11]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(111): error C2664: 'DxLib::DrawString' : 3 番目の引数を 'const char [11]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>DebugMode.cpp(112): error C2664: 'DxLib::DrawFormatString' : 4 番目の引数を 'const char [9]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+         GMainPMgr.cpp
+         Main.cpp
+     1>Main.cpp(98): error C2664: 'DxLib::LoadGraph' : 1 番目の引数を 'char *' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>Main.cpp(99): error C2664: 'DxLib::LoadDivGraph' : 1 番目の引数を 'char *' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>Main.cpp(109): error C2664: 'DxLib::LoadSoundMem' : 1 番目の引数を 'char *' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>Main.cpp(146): error C2664: 'DxLib::SetMainWindowText' : 1 番目の引数を 'const char [15]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+         GMain1P.cpp
+         GMain2P.cpp
+         GMainUI.cpp
+         sceneGMain.cpp
+         sceneTitle.cpp
+         titleDescribe.cpp
+         titleSelect.cpp
+     1>titleSelect.cpp(110): error C2664: 'DxLib::DrawFormatString' : 4 番目の引数を 'const char [3]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+     1>titleSelect.cpp(111): error C2664: 'DxLib::DrawFormatString' : 4 番目の引数を 'const char [3]' から 'const TCHAR *' に変換できません。(新しい機能 ; ヘルプを参照)
+                 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+         titleLogo.cpp
+     1>プロジェクト "C:\Users\kbc11606120\Documents\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX\NEW_BIRDMAN_EX.vcxproj" (Build ターゲット) のビルドが終了しました -- 失敗。
+
+ビルドに失敗しました。
+
+経過時間 00:00:09.45

@@ -41,7 +41,11 @@ enum {//ƒLƒƒƒ‰‚Ì–¼‘O
 	_SOTAI_KUN,
 };
 
-
+enum {
+	_GAME_ROUND,
+	_GAME_PLAY,
+	_GAME_RESULT,
+};
 
 enum{
 	_KEY_MODE_NOW,
