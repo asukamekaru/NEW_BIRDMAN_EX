@@ -5,8 +5,6 @@
 #include "sceneGMain.h"
 #include "DebugMode.h"
 
-DEBUG_MODE DebugMode;
-
 char *TEXT;
 int iNowSelect = 0;
 
@@ -43,17 +41,17 @@ bool DEBUG_MODE::Update(){
 	case CHAR_P1:
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_LEFT))iselect = (iselect == 0) ? 13 : iselect -= 1;//ç∂
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_RIGHT))iselect = (iselect == 13) ? 0 : iselect += 1;//âE
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))select1p = iselect,iNowSelect = CHAR_P2;
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))GameWork.iNowChar1P = iselect,iNowSelect = CHAR_P2;
 		break;
 	case CHAR_P2:
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_LEFT))iselect = (iselect == 0) ? 13 : iselect -= 1;//ç∂
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_RIGHT))iselect = (iselect == 13) ? 0 : iselect += 1;//âE
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))select2p = iselect,iNowSelect = STAGE;
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))GameWork.iNowChar2P = iselect,iNowSelect = STAGE;
 		break;
 	case STAGE:
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_LEFT))iselect = (iselect == 0) ? 9 : iselect -= 1;//ç∂
 		if(iKey_Check(_KEY_MODE_TRG,_KEY_RIGHT))iselect = (iselect >= 9) ? 0 : iselect += 1;//âE
-		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))selectstage = iselect,vChangeScene(new SCENE_GMAIN());
+		if(iKey_Check(_KEY_MODE_TRG,_KEY_SPACE))GameWork.iNowStage = iselect,vChangeScene(new SCENE_GMAIN());
 		break;
 	}
 	return true;
@@ -112,10 +110,4 @@ void DEBUG_MODE::StageSelect(){
 	DrawString( 0 , _FONTSIZE_M * 1, "PUSH Å© Å®" , _COLOR_RED ) ;
 	DrawString( 0 , _FONTSIZE_M * 2, "PUSH SPACE" , _COLOR_RED ) ;
 	DrawFormatString( 0 , _FONTSIZE_S * 8 , _COLOR_RED , "STAGE %d" , iselect ) ;
-}
-
-void DEBUG_MODE_SELECT::SELECT(){
-	GameWork.iNowChar1P = DebugMode.select1p;
-	GameWork.iNowChar2P = DebugMode.select2p;
-	GameWork.iNowStage = DebugMode.selectstage;
 }

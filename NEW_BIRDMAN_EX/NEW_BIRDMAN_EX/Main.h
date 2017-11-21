@@ -79,9 +79,9 @@ enum{
 typedef struct{
 	int iState;
 
-	static int iNowChar1P;
-	static int iNowChar2P;
-	static int iNowStage;
+	int iNowChar1P;
+	int iNowChar2P;
+	int iNowStage;
 
 	int iNowKey[_NUM_KEY];
 	int iOldKey[_NUM_KEY];

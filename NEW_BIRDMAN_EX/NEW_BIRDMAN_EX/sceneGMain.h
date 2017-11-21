@@ -1,5 +1,5 @@
-#ifndef _SCENE_MAIN_H_
-#define _SCENE_MAIN_H_
+#ifndef _SCENE_GMAIN_H_
+#define _SCENE_GMAIN_H_
 
 #include "Scene.h"
 
@@ -27,11 +27,14 @@ private:
 	void Message(char* msg);
 
 public:
+
 	bool initialize();
-	char& initCandM(char* HEAD_ADDRESS,int NOWNUM,char* FOOT_ADDRESS);
+	char *initCandM(char* HEAD_ADDRESS,int NOWNUM,char* FOOT_ADDRESS);
 	void Release();
 	bool Update();
 	void Render();
 };
 
-#endif //!_SCENE_MAIN_H_
+extern SCENE_GMAIN SceneGMain;
+
+#endif //!_SCENE_GMAIN_H_

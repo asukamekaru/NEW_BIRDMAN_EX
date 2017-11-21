@@ -7,54 +7,19 @@
 #include <stdio.h>
 #include <string.h>
 
-char cImageLoad[254];
-
-char a[254];
-char b;
-int c = 0;
-
+SCENE_GMAIN SceneGMain;
 //
 //èâä˙âª
 //
 bool SCENE_GMAIN::initialize()
 {
-
-	/*initCandM(_SCENE_GMAIN_STAGE,(char)iNowStage);
-	initCandM(_SCENE_GMAIN_C1P,(char)iNowChar1P);
-	initCandM(_SCENE_GMAIN_C2P,(char)iNowChar2P);*/
-
-	//0:îwåiâÊëú 1:1PâÊëú 2:2PâÊëú ---- ëO
-	char *cImageHead[3] ={"../images/gamemain/main_stage","../images/gamemain/character","../images/gamemain/character"};
-	//0:îwåiâÊëú 1:1PâÊëú 2:2PâÊëú ---- å„
-	char *cImageFoot[3] ={".png","charactor1P.png","charactor2P.png"};
-
-	//char *a = (char*)iNowStage;
-
-	char a[254];
-	char buf[12];
-	int i = 0;
-
-	//if(GameWork.iNowStage == 0)i = 0;
-	//else if(GameWork.iNowStage == 1)i = 1;
-	//else i = 2; 
-
-	sprintf_s(buf, 12, "%d", i);
-	puts(buf);
-
-	strcpy_s(a, "../images/gamemain/main_stage");
-	strcat_s(a, buf);
-	strcat_s(a, ".png");
-
 	if(_IMG_MAX != 0)
 	{
 		iImage = new int *[_IMG_MAX];
 
-
-		ipLoadImage(&iImage[_SCENE_GMAIN_STAGE],a);//îwåi
-		//ipLoadImage(&iImage[_SCENE_GMAIN_STAGE],&initCandM("../images/gamemain/main_stage",iNowStage, ".png"));//îwåi
-		//ipLoadImage(&iImage[_SCENE_GMAIN_C1P],initCandM(char *HEAD_ADDRESS,int *NOWNUM,char *FOOT_ADDRESS));//1PÇÃâÊëú
-		//ipLoadImage(&iImage[_SCENE_GMAIN_C2P],initCandM(char *HEAD_ADDRESS,int *NOWNUM,char *FOOT_ADDRESS));//2PÇÃâÊëú
-
+		ipLoadImage(&iImage[_SCENE_GMAIN_STAGE],initCandM("../images/gamemain/main_stage",GameWork.iNowStage, ".png"));//îwåi
+		ipLoadImage(&iImage[_SCENE_GMAIN_C1P],initCandM("../images/gamemain/character",GameWork.iNowChar1P, "charactor1P.png"));//1PÇÃâÊëú
+		ipLoadImage(&iImage[_SCENE_GMAIN_C2P],initCandM("../images/gamemain/character",GameWork.iNowChar2P, "charactor2P.png"));//2PÇÃâÊëú
 
 	}
 
@@ -70,19 +35,21 @@ bool SCENE_GMAIN::initialize()
 	return true;
 }
 
-char& SCENE_GMAIN::initCandM(char* HEAD_ADDRESS,int NOWNUM,char* FOOT_ADDRESS){
+char *SCENE_GMAIN::initCandM(char* HEAD_ADDRESS,int NOWNUM,char* FOOT_ADDRESS){
 
-	int iChangeVar = NOWNUM;
-	char cChangeVar;
-	char LoadAddress[254];
+	static char cImageLoad[254];
 
-	//cChangeVar = '0' + iChangeVar;
+	char buf[12];
+	int i = NOWNUM;
 
-	strcpy_s(LoadAddress, "../images/gamemain/main_stage");
-	strcat_s(LoadAddress, "0");
-	strcat_s(LoadAddress, ".png");
+	sprintf_s(buf, 12, "%d", i);
+	puts(buf);
 
-	return *LoadAddress;
+	strcpy_s(cImageLoad, HEAD_ADDRESS);
+	strcat_s(cImageLoad, buf);
+	strcat_s(cImageLoad, FOOT_ADDRESS);
+
+	return cImageLoad;
 }
 
 //
@@ -117,6 +84,8 @@ bool SCENE_GMAIN :: Update()
 void SCENE_GMAIN::Render()
 {
 	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_SCENE_GMAIN_STAGE][0], FALSE, FALSE );	
+	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_SCENE_GMAIN_C1P][0], FALSE, FALSE );	
+	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_SCENE_GMAIN_C2P][0], FALSE, FALSE );	
 
 	DrawString( 0 , 0, "", _COLOR_WHITE ) ;
 }
