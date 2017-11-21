@@ -101,6 +101,7 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="DebugMode.h" />
     <ClInclude Include="GMainPMgr.h" />
+    <ClInclude Include="GMainUI.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="GMain1P.h" />
     <ClInclude Include="GMain2P.h" />
