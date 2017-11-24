@@ -2,6 +2,7 @@
 #include "Base.h"
 #include "SceneTitle.h"
 #include "SceneGMain.h"
+#include "GMainRound.h"
 #include "DebugMode.h"
 
 #include <stdio.h>
@@ -38,6 +39,8 @@ bool SCENE_GMAIN::initialize()
 
 
 	}
+
+	GMainRound.initialize();//GMainRoundのinitializeを呼ぶ
 
 	GameWork.iState = _GAME_ROUND;
 
@@ -78,6 +81,8 @@ void SCENE_GMAIN::Release()
 		iSe[i] = NULL;
 	}
 
+	GMainRound.Release();//GMainRoundのReleaseを呼ぶ
+
 }
 //
 //更新
@@ -93,6 +98,9 @@ bool SCENE_GMAIN :: Update()
 	case _GAME_RESULT:
 		break;
 	}
+
+	GMainRound.Update();//GMainRoundのUpdateを呼ぶ
+
 	return true;
 }
 //
@@ -113,4 +121,6 @@ void SCENE_GMAIN::Render()
 	sscDrawGraph(FOOTER_FRAME_X, FOOTER_FRAME_Y, 1.0, 0.0,iImage[_SCENE_GMAIN_FOOTER_1][0], TRUE, FALSE );//下画面のフレーム1左
 	sscDrawGraph(_DEF_SCREEN_X - FOOTER_FRAME_X, FOOTER_FRAME_Y, 1.0, 0.0,iImage[_SCENE_GMAIN_FOOTER_1][0], TRUE, TRUE );//下画面のフレーム1右
 	//sscDrawGraph(500, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_SCENE_GMAIN_FOOTER_2][0], TRUE, FALSE );	
+
+	GMainRound.Render();//GMainRoundのRenderを呼ぶ
 }

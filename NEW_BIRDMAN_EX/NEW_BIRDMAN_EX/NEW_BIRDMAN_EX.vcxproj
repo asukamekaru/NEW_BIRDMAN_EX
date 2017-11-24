@@ -86,7 +86,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DebugMode.cpp" />
-    <ClCompile Include="GMainPMgr.cpp" />
+    <ClCompile Include="GMainRound.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GMain1P.cpp" />
     <ClCompile Include="GMain2P.cpp" />
@@ -100,7 +100,7 @@
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="DebugMode.h" />
-    <ClInclude Include="GMainPMgr.h" />
+    <ClInclude Include="GMainRound.h" />
     <ClInclude Include="GMainUI.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="GMain1P.h" />

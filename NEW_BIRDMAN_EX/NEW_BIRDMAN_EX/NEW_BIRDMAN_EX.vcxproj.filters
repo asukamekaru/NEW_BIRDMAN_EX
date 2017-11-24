@@ -45,7 +45,7 @@
     <ClCompile Include="GMain1P.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="GMainPMgr.cpp">
+    <ClCompile Include="GMainRound.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,10 +83,10 @@
     <ClInclude Include="sceneGMain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="GMainPMgr.h">
+    <ClInclude Include="GMainUI.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="GMainUI.h">
+    <ClInclude Include="GMainRound.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
