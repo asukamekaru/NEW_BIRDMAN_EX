@@ -3,6 +3,8 @@
 #include "sceneGMain.h"
 #include "GMainRound.h"
 
+#include<math.h>
+
 GMAIN_ROUND GMainRound;
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
@@ -14,23 +16,26 @@ enum{//スクロール演出の上下
 	_STANGING_SCROLL_Y
 };
 
+enum{//スクロール演出の上下
+	_ROUND_SHUTTER,
+	_ROUND_ROUND_ANIME,
+	_ROUND_FIGHT_ANIME
+};
+
 #define _BALL_SPEED 1//ボールスピード
 
 //スクロール演出関連 SS = StangingScroll
 #define _SS_SPEED 2//スクロール演出のスピード
-#define _SS_POSITION_Y 105//スクロール演出の固定Y座標（上）
-
-
-
-float fSpinBallAngle;//回るボールの角度
+#define _SS_POSITION_Y 110//スクロール演出の固定Y座標（上）
+#define _SS_POSITION_SPAWN 960//スクロール演出の固定Y座標（上）
 
 //int StagingScrollPosition[x][y] -上1-上2-下1-下2-
 int iSSPosition[4][2] = {
 
-	{_DEF_SCREEN_X/2*3,_DEF_SCREEN_Y/2 + _SS_POSITION_Y},
-	{_DEF_SCREEN_X/2,_DEF_SCREEN_Y/2 + _SS_POSITION_Y+10},
-	{_DEF_SCREEN_X/2*3,_DEF_SCREEN_Y/2 - _SS_POSITION_Y},
-	{_DEF_SCREEN_X/2,_DEF_SCREEN_Y/2 - _SS_POSITION_Y+10}};
+	{_DEF_SCREEN_X/2,_DEF_SCREEN_Y/2 - _SS_POSITION_Y},//最初に映るやつ（上）
+	{_SS_POSITION_SPAWN,_DEF_SCREEN_Y/2 - _SS_POSITION_Y},//最後に映るやつ（上）
+	{_DEF_SCREEN_X/2,_DEF_SCREEN_Y/2 + _SS_POSITION_Y},//最初に映るやつ（下）
+	{_SS_POSITION_SPAWN,_DEF_SCREEN_Y/2 + _SS_POSITION_Y}};//最後に映るやつ（下）
 
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
@@ -43,14 +48,19 @@ bool GMAIN_ROUND :: initialize()
 		iImage = new int*[_IMG_MAX];
 		ipLoadImage(&iImage[_GMAIN_ROUND_RBALL1],"../images/gamemain/UI/RoundBall1.png",10,10,1,514,480);//ラウンドボール1
 		ipLoadImage(&iImage[_GMAIN_ROUND_RBALL2],"../images/gamemain/UI/RoundBall2.png",10,10,1,332,331);//ラウンドボール2
-		ipLoadImage(&iImage[_GMAIN_ROUND_STANGING1],"../images/gamemain/UI/RoundEffect.png");//ラウンドエフェクト
 		ipLoadImage(&iImage[_GMAIN_ROUND_STANGING_SCROLL],"../images/gamemain/UI/RoundScroll.png");//ラウンドエフェクト
+		ipLoadImage(&iImage[_GMAIN_ROUND_STANGING_ROUND],"../images/gamemain/UI/RoundStaging.png",69,23,3,640,202);//ラウンド演出
+		ipLoadImage(&iImage[_GMAIN_ROUND_STANGING_FIGHT1],"../images/gamemain/UI/RoundFight.png",10,10,1,640,200);//ラウンド演出（文字）
+		ipLoadImage(&iImage[_GMAIN_ROUND_STANGING_FIGHT2],"../images/gamemain/UI/RoundEffect.png",9,9,1,636,480);//ラウンド演出（ボール）
 	}
 
 	if(_SE_MAX != 0)
 	{
 		iSe = new int *[_SE_MAX];
 	}
+
+	iROUND_STANGING = _ROUND_ROUND_ANIME;//シャッター演出から始める
+	iStagingTime = 0;//演出の時間の初期化
 
 	return true;
 }
@@ -78,6 +88,33 @@ bool GMAIN_ROUND::Update()
 	//動くやつ
 	fSpinBallAngle = (fSpinBallAngle <= 360) ? fSpinBallAngle += _BALL_SPEED : fSpinBallAngle -= 360;//背景ボールの回転
 
+
+
+	switch(iROUND_STANGING){
+	case _ROUND_SHUTTER:
+		break;
+	case _ROUND_ROUND_ANIME:
+		if(iStaging != 22){
+			++iStaging;
+		}else if(iStagingTime != 120){
+			++iStagingTime;//演出の時間を増やす
+		}else{
+			iROUND_STANGING = _ROUND_FIGHT_ANIME;
+			iStaging = iStagingTime = 0;
+		}
+		break;
+	case _ROUND_FIGHT_ANIME:
+		if(iStaging != 9){
+			++iStaging;
+		}else if(iStagingTime != 120){
+			++iStagingTime;//演出の時間を増やす
+		}else{
+			iROUND_STANGING = _ROUND_ROUND_ANIME;
+			iStaging = iStagingTime = 0;
+		}
+		break;
+	}
+
 	return true;
 }
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
@@ -86,17 +123,33 @@ bool GMAIN_ROUND::Update()
 void GMAIN_ROUND::Render()
 {
 
-	//↓↓↓↓↓↓//画像//↓↓↓↓↓↓//
-	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, fSpinBallAngle,iImage[_GMAIN_ROUND_RBALL1][0], TRUE, FALSE );//ラウンドボール1
-	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, -fSpinBallAngle,iImage[_GMAIN_ROUND_RBALL2][0], TRUE, FALSE );//ラウンドボール2
+	//↓↓↓↓↓↓//iROUND_STANGINGの影響を受けず描画//↓↓↓↓↓↓//
 
-	for(int i = 0;i < 4;i++){//ラウンド横スクロール
+	//ラウンドボール1
+	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, fSpinBallAngle,iImage[_GMAIN_ROUND_RBALL1][0], TRUE, FALSE );
+	//ラウンドボール2
+	sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, -fSpinBallAngle,iImage[_GMAIN_ROUND_RBALL2][0], TRUE, FALSE );
+	//ラウンド横スクロール
+	for(int i = 0;i < 4;i++){
 		sscDrawGraph( iSSPosition[i][_STANGING_SCROLL_X],iSSPosition[i][_STANGING_SCROLL_Y], 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_SCROLL][0],TRUE,FALSE );
-		iSSPosition[i][_STANGING_SCROLL_X] = (iSSPosition[i][_STANGING_SCROLL_X] >= -_DEF_SCREEN_X / 2) ? iSSPosition[i][_STANGING_SCROLL_X] -= _SS_SPEED : _DEF_SCREEN_X/2*3;
+
+		iSSPosition[i][_STANGING_SCROLL_X] = (iSSPosition[i][_STANGING_SCROLL_X] >= -_DEF_SCREEN_X / 2) ? iSSPosition[i][_STANGING_SCROLL_X] -= _SS_SPEED : _SS_POSITION_SPAWN - 4;
 	}
-	//sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_REFFECT1][0], TRUE, FALSE );//ラウンドエフェクト
+	//↑↑↑↑↑↑//iROUND_STANGINGの影響を受けず描画//↑↑↑↑↑↑//
 
 
+	switch(iROUND_STANGING){
+	case _ROUND_SHUTTER:
 
-	//↑↑↑↑↑↑//画像//↑↑↑↑↑↑//
+		break;
+	case _ROUND_ROUND_ANIME:
+		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_ROUND][iStaging + 2 * 23], TRUE, FALSE );//iStaging + (0～2の数字で変わる) * 23
+		break;
+
+	case _ROUND_FIGHT_ANIME:
+		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT1][iStaging], TRUE, FALSE );
+		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT2][iStaging], TRUE, FALSE );
+		break;
+	}
+
 }
