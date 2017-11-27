@@ -11,8 +11,8 @@ private:
 	enum{
 		_GMAIN_ROUND_RBALL1,//ラウンドボール1
 		_GMAIN_ROUND_RBALL2,//ラウンドボール2
-		_GMAIN_ROUND_REFFECT1,//ラウンドエフェクト
-
+		_GMAIN_ROUND_STANGING1,//ラウンド演出
+		_GMAIN_ROUND_STANGING_SCROLL,//ラウンドスクロール演出
 		_IMG_MAX
 	};
 
