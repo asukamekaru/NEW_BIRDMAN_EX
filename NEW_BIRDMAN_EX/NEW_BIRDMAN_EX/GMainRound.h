@@ -12,7 +12,7 @@ private:
 	int iStaging1;//演出1
 	int iStaging2;//演出2
 	int iStagingTime;//演出の時間
-	int iROUND_STANGING;//演出の順番
+	int iROUND_STAGING;//演出の順番
 
 	float fSpinBallAngle;//回るボールの角度
 
@@ -40,8 +40,8 @@ public:
 	void Release();
 	bool Update();
 	void Render();
-	void CHANGE_STAGING (int iCHANGETIME,int STAGING);
-	int CHANGE_STAGING_IMG (int A,int IMGNUM);
+	int CHANGE_STAGING (int iCHANGETIME,int i,int STAGING);
+	int CHANGE_STAGING_IMG (int A,int IMGNUM,bool bHIDDEN_IMG);
 };
 
 extern GMAIN_ROUND GMainRound;

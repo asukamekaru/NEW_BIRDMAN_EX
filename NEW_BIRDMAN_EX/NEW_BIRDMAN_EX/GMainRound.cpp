@@ -59,8 +59,9 @@ bool GMAIN_ROUND :: initialize()
 		iSe = new int *[_SE_MAX];
 	}
 
-	iROUND_STANGING = _ROUND_ROUND_ANIME;//シャッター演出から始める
-	iStagingTime = 0;//演出の時間の初期化
+	iROUND_STAGING = _ROUND_ROUND_ANIME;//シャッター演出から始める
+	//演出1 演出2 演出時間 リセット
+	iStaging1 = iStaging2 = iStagingTime = 0;
 
 	return true;
 }
@@ -90,48 +91,49 @@ bool GMAIN_ROUND::Update()
 
 
 
-	switch(iROUND_STANGING){
+	switch(iROUND_STAGING){
 	case _ROUND_SHUTTER:
 		break;
 	case _ROUND_ROUND_ANIME:
 
-		//if(iStaging1 != 22)++iStaging1;
-		CHANGE_STAGING_IMG (iStaging1,22);
-		//CHANGE_STAGING (120,_ROUND_FIGHT_ANIME);
+		iStaging1 = CHANGE_STAGING_IMG (iStaging1,22,FALSE);
 
+		if(iStaging1 == 22)iROUND_STAGING = CHANGE_STAGING (120,iROUND_STAGING,_ROUND_FIGHT_ANIME);
 		break;
 	case _ROUND_FIGHT_ANIME:
-		if(iStaging1 != 9){
-			++iStaging1;
-		}else if(iStagingTime != 120){
-			++iStagingTime;//演出の時間を増やす
-		}else{
-			iROUND_STANGING = _ROUND_ROUND_ANIME;
-			iStaging1 = iStagingTime = 0;
-		}
+
+		iStaging1 = CHANGE_STAGING_IMG (iStaging1,9,FALSE);
+		iStaging2 = CHANGE_STAGING_IMG (iStaging2,8,TRUE);
+
+		if(iStaging1 == 9)iROUND_STAGING = CHANGE_STAGING (120,iROUND_STAGING,_ROUND_ROUND_ANIME);
 		break;
 	}
 
 	return true;
 }
 
-void GMAIN_ROUND::CHANGE_STAGING (int iCHANGETIME,int STAGING){
+int GMAIN_ROUND::CHANGE_STAGING (int iCHANGETIME,int i,int STAGING){
 
 	static int iStagingTime = 0;
 
 	if(iStagingTime != iCHANGETIME){
 		++iStagingTime;//演出の時間を増やす
 	}else{
-		iROUND_STANGING = STAGING;
+		//指定の演出、シーンに移動
+		i = STAGING;
+		//演出1 演出2 演出時間 リセット
 		iStaging1 = iStaging2 = iStagingTime = 0;
+
 	}
+	return i;
 }
 
-int GMAIN_ROUND::CHANGE_STAGING_IMG (int A,int IMGNUM){
+int GMAIN_ROUND::CHANGE_STAGING_IMG (int iNOWIMGNUM,int iMAXIMGNUM,bool bHIDDEN_IMG){
 
-	if(A != IMGNUM)++A;
+	if(iNOWIMGNUM != iMAXIMGNUM && iNOWIMGNUM != -1)++iNOWIMGNUM;
+	else if(bHIDDEN_IMG)iNOWIMGNUM = -1;//非表示
 
-	return CHANGE_STAGING_IMG(A,IMGNUM);
+	return iNOWIMGNUM;
 }
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										描画									   //
@@ -154,7 +156,7 @@ void GMAIN_ROUND::Render()
 	//↑↑↑↑↑↑//iROUND_STANGINGの影響を受けず描画//↑↑↑↑↑↑//
 
 
-	switch(iROUND_STANGING){
+	switch(iROUND_STAGING){
 	case _ROUND_SHUTTER:
 
 		break;
@@ -164,7 +166,7 @@ void GMAIN_ROUND::Render()
 
 	case _ROUND_FIGHT_ANIME:
 		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT1][iStaging1], TRUE, FALSE );
-		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT2][iStaging1], TRUE, FALSE );
+		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT2][iStaging2], TRUE, FALSE );
 		break;
 	}
 
