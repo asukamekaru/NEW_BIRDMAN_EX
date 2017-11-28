@@ -8,12 +8,13 @@ class GMAIN_ROUND : public BASE_WORK
 
 private:
 
-	float fSpinBallAngle;//回るボールの角度
-
-	int iROUND_STANGING;//演出の順番
 	int iRoundStaging;
-	int iStaging;//演出
+	int iStaging1;//演出1
+	int iStaging2;//演出2
 	int iStagingTime;//演出の時間
+	int iROUND_STANGING;//演出の順番
+
+	float fSpinBallAngle;//回るボールの角度
 
 	enum{
 		_GMAIN_ROUND_RBALL1,//ラウンドボール1
@@ -39,6 +40,8 @@ public:
 	void Release();
 	bool Update();
 	void Render();
+	void CHANGE_STAGING (int iCHANGETIME,int STAGING);
+	int CHANGE_STAGING_IMG (int A,int IMGNUM);
 };
 
 extern GMAIN_ROUND GMainRound;

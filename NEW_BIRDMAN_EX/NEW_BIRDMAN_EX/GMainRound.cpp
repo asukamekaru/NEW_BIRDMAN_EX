@@ -16,7 +16,7 @@ enum{//スクロール演出の上下
 	_STANGING_SCROLL_Y
 };
 
-enum{//スクロール演出の上下
+enum {//スクロール演出の上下
 	_ROUND_SHUTTER,
 	_ROUND_ROUND_ANIME,
 	_ROUND_FIGHT_ANIME
@@ -94,28 +94,44 @@ bool GMAIN_ROUND::Update()
 	case _ROUND_SHUTTER:
 		break;
 	case _ROUND_ROUND_ANIME:
-		if(iStaging != 22){
-			++iStaging;
-		}else if(iStagingTime != 120){
-			++iStagingTime;//演出の時間を増やす
-		}else{
-			iROUND_STANGING = _ROUND_FIGHT_ANIME;
-			iStaging = iStagingTime = 0;
-		}
+
+		//if(iStaging1 != 22)++iStaging1;
+		CHANGE_STAGING_IMG (iStaging1,22);
+		//CHANGE_STAGING (120,_ROUND_FIGHT_ANIME);
+
 		break;
 	case _ROUND_FIGHT_ANIME:
-		if(iStaging != 9){
-			++iStaging;
+		if(iStaging1 != 9){
+			++iStaging1;
 		}else if(iStagingTime != 120){
 			++iStagingTime;//演出の時間を増やす
 		}else{
 			iROUND_STANGING = _ROUND_ROUND_ANIME;
-			iStaging = iStagingTime = 0;
+			iStaging1 = iStagingTime = 0;
 		}
 		break;
 	}
 
 	return true;
+}
+
+void GMAIN_ROUND::CHANGE_STAGING (int iCHANGETIME,int STAGING){
+
+	static int iStagingTime = 0;
+
+	if(iStagingTime != iCHANGETIME){
+		++iStagingTime;//演出の時間を増やす
+	}else{
+		iROUND_STANGING = STAGING;
+		iStaging1 = iStaging2 = iStagingTime = 0;
+	}
+}
+
+int GMAIN_ROUND::CHANGE_STAGING_IMG (int A,int IMGNUM){
+
+	if(A != IMGNUM)++A;
+
+	return CHANGE_STAGING_IMG(A,IMGNUM);
 }
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //										描画									   //
@@ -143,13 +159,15 @@ void GMAIN_ROUND::Render()
 
 		break;
 	case _ROUND_ROUND_ANIME:
-		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_ROUND][iStaging + 2 * 23], TRUE, FALSE );//iStaging + (0～2の数字で変わる) * 23
+		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_ROUND][iStaging1 + 2 * 23], TRUE, FALSE );//iStaging + (0～2の数字で変わる) * 23
 		break;
 
 	case _ROUND_FIGHT_ANIME:
-		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT1][iStaging], TRUE, FALSE );
-		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT2][iStaging], TRUE, FALSE );
+		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT1][iStaging1], TRUE, FALSE );
+		sscDrawGraph(_DEF_SCREEN_X / 2, _DEF_SCREEN_Y / 2, 1.0, 0.0,iImage[_GMAIN_ROUND_STANGING_FIGHT2][iStaging1], TRUE, FALSE );
 		break;
 	}
+
+	DrawFormatString( 0 , 0 , 0xFFFFFF ,"%d" , iStaging1) ;
 
 }
